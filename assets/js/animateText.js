@@ -1,10 +1,9 @@
 //https://github.com/jahdaic/Glitch-Text
 //$('.glitch').glitch({ speed: 280, duration: 5000 });
 
-/* 
 var typed = new Typed('#subtitle', {
-  strings: ['Share your files without an login'],
-  typeSpeed: 90,
+  strings: ['Deine Augen werden Augen machen. Einfach faszinierend.', 'Fast zu schnell, um wahr zu sein.', 'Liebe auf den ersten, zweiten, dritten, vierten, fünften Klick.'],
+  typeSpeed: 80,
   startDelay: 150,
   showCursor: true,
   cursorChar: '|',
@@ -13,4 +12,3 @@ var typed = new Typed('#subtitle', {
     self.cursor.hidden = true;
   },
 });
-*/
