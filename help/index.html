@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>Help Page - File Share</title>
+  </head>
+  <body>
+    <div class="container-sm">
+      <h3 class="text-center m-3">File Share</h3>
+      <div class="row">
+        <ul class="col-2">
+          <li id="tosLi" class="active"><a href="#pp">Terms Of Service</a></li>
+          <li id="ppLi"><a href="#tos">Privacy Policy</a></li>
+        </ul>
+        <div class="col-10">
+          <div id="tos">
+            <a id="tosBtn">Terms of Service</a>
+            <div id="tosDiv" style="display: none">
+              <p>Note: Remove the scroll-behavior property to remove smooth scrolling.</p>
+            </div>
+          </div>
+
+          <div id="pp">
+            <a id="ppBtn">Privacy Policy</a>
+            <div id="ppDiv" style="display: none">
+              <p>Note: Remove the scroll-behavior property to remove smooth scrolling.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/scroll.js"></script>
+    <script src="assets/js/toggleEl.js"></script>
+  </body>
+</html>

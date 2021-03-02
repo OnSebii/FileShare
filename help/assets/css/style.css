@@ -1,0 +1,31 @@
+html {
+  scroll-behavior: smooth;
+}
+
+#section1 {
+  height: 600px;
+  background-color: pink;
+}
+
+#section2 {
+  height: 600px;
+  background-color: yellow;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  padding: 8px;
+  margin: 5px;
+}
+
+
+.active {
+  background-color: #252525;
+}
+
+a:link {
+  text-decoration: none;
+}

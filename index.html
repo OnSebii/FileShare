@@ -5,24 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
     <title>File Share</title>
   </head>
-  <body style="background-color: #171717">
+  <body>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand" href="#">Domain.name</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+        </ul>
+        <span class="nav-item">
+          <a class="nav-link" href="#">Login</a>
+        </span>
+      </div>
+    </nav>
+    <!-- Nav Bar ende -->
+
     <!-- Welches Farbe ist schöner default von Bootswatch oder #171717? -->
+
     <!-- Main Container alles ist drinnen -->
     <div class="container">
       <div class="text-center landing-title-body">
         <h1 class="glitch">File Share</h1>
-        <h5>Share your files without login</h5>
-        <p>Upload Button</p>
+        <h5>Subtext</h5>
       </div>
       <div class="text-center">
         <a class="" id="subtitle"></a>
       </div>
+
+      <hr />
+      <h3 class="text-center">About</h3>
+      <div>
+        <p><strong>How is (File Share) Unique?</strong></p>
+        <a>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+          accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </a>
+      </div>
+
       <hr />
 
       <!-- Features Tab  jeweils mit den eigenen Cards-->
@@ -34,7 +64,7 @@
             <div class="card-body">
               <i class="material-icons mi">done_all</i>
               <h4 class="card-title">Easy to use</h4>
-              <span class="card-text">xxx</span>
+              <span class="card-text">We are easy to use. Just upload your file and share it with your friends.</span>
             </div>
           </div>
         </div>
@@ -43,7 +73,7 @@
             <div class="card-body">
               <i class="material-icons mi">https</i>
               <h4 class="card-title">Security</h4>
-              <span class="card-text">xxx</span>
+              <span class="card-text">We are full HTTPS protected.</span>
             </div>
           </div>
         </div>
@@ -51,8 +81,8 @@
           <div class="card">
             <div class="card-body">
               <i class="material-icons mi">hourglass_empty</i>
-              <h4 class="card-title">(Time)</h4>
-              <span class="card-text">Your files are automatically deleted after a week.</span>
+              <h4 class="card-title">Auto delete</h4>
+              <span class="card-text">(File Share) will automatically delete all files which get uploaded anonymously.</span>
             </div>
           </div>
         </div>
@@ -61,31 +91,38 @@
             <div class="card-body">
               <i class="material-icons mi">folder_open</i>
               <h4 class="card-title">Open Source</h4>
-              <span class="card-text">Your files are automatically deleted after a week.</span>
+              <span class="card-text">
+                <!-- TODO: Github Link mit eigener Domain ersetzen. -->
+                Our whole project is open source. You can find the source code on
+                <a href="https://github.com/OnSebii/FileShare" target="_blank" style="color: #2db194 !important">GitHub</a>
+                .
+              </span>
             </div>
           </div>
         </div>
       </div>
-      <!-- Features Tab  jeweils mit den eigenen Cards-->
+      <!-- Features Tab  jeweils mit den eigenen Cards ende-->
 
-      <!-- Footer (fixed)-->
+      <hr />
+
+      <!-- Footer -->
       <div class="landing-footer-body footer-bottom container">
         <div class="float-left">
-          <span class="footer-title">Copyright © 2021 | AnonShare | All rights reserved</span>
+          <span class="footer-title">Copyright © 2021&ensp;|&ensp;File Share&ensp;|&ensp;All rights reserved</span>
           <br />
-          <a>Email: admin@anonshare.com</a>
+          <a>Email: admin@domain.name</a>
         </div>
         <div class="float-right">
           <span class="footer-title">Links</span>
           <br />
           <a target="_blank" href="https://material.io/resources/icons/">Icons</a>
-          <a href="">Terms of service</a>
-          <a href="/">Privacy policy</a>
+          <a href="help/index.html">Terms Of Service</a>
+          <a href="help/index.html">Privacy Policy</a>
         </div>
       </div>
     </div>
-    <!-- Footer -->
-    <!-- Main Container alles ist drinnen -->
+    <!-- Footer ende -->
+    <!-- Main Container alles ist drinnen ende -->
   </body>
   <script src="./assets/js/glitch-text.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>

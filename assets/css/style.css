@@ -1,4 +1,9 @@
+body {
+  background-color: #171717;
+}
+
 hr {
+  width: 250px;
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
@@ -22,7 +27,7 @@ span {
 }
 
 .landing-footer-body {
-  position: fixed;
+  /* position: fixed; */
   height: 100px;
   bottom: 0;
   width: 100%;
