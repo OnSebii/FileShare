@@ -1,0 +1,49 @@
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  height: 0;
+  border-top: 1px solid #2db194;
+  box-sizing: content-box;
+}
+
+a {
+  color: #91979a !important;
+}
+
+span {
+  color: #91979a !important;
+}
+
+/* Damit die Klasse Card Transparent ist */
+.card {
+  background-color: transparent !important;
+  border: transparent !important;
+}
+
+.landing-footer-body {
+  position: fixed;
+  height: 100px;
+  bottom: 0;
+  width: 100%;
+}
+
+.landing-footer-body a {
+  margin-right: 5px;
+  font-size: 13px;
+}
+
+.footer-title {
+  font-size: 14px;
+  color: #fff !important;
+}
+
+.mi {
+  color: #2db194;
+  font-size: 64px !important;
+}
+
+.landing-title-body {
+  padding-top: 5%;
+  text-align: center;
+}
