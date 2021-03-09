@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "filestream": "^5.0.0"
+    "filestream": "^5.0.0",
+    "path": "^0.12.7"
   }
 }
