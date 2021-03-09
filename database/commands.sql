@@ -94,7 +94,7 @@ WHERE email = 'email';
 
 --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -- # Files
 
--- Reload User Files
+-- GET User Files
 SELECT id, name, path, synonym_path, upload_date, admin
 FROM users
          JOIN user_data USING (email)
@@ -102,8 +102,26 @@ FROM users
 WHERE email = 'lang.s03@htlwienwest.at';
 
 -- Insert User Files
-INSERT INTO files(id, name, path, synonym_path, upload_date)
-VALUES (2, 'File', 'user/folder/filename', 'synonym', now());
+INSERT INTO files(id, name, path, upload_date)
+VALUES (2, 'File', 'user/folder/filename', now());
 --
 INSERT INTO user_data(email, data_id, admin)
 VALUES ('palatin.d02@htlwienwest.at', 2, true);
+-- SET File Synonym Path
+UPDATE files
+SET synonym_path = 'xxx'
+WHERE id = 1;
+
+-- Update User File
+UPDATE files
+SET name=''
+WHERE id = (SELECT DISTINCT id
+            FROM users
+                     JOIN user_data USING (email)
+                     JOIN files ON id = data_id
+            WHERE email = 'email');
+
+-- Delete User File
+DELETE
+FROM files
+WHERE id = 1;
