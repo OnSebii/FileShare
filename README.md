@@ -18,8 +18,16 @@ npm -v
 
 ### Installing PostgreSQL
 
-You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgresql.org/download/) for your operating system. After downloading PostgreSQL, follow the next steps to import the database. Here you can download the database [Download](database).
+You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgresql.org/download/) for your operating system. After downloading PostgreSQL, follow the next steps to import the database. Here you can [download](database) the database.
 
 TODO beschreiben import database
 
 ### Installing FileShare
+
+To create your own FileShare and serve it locally, where MY-OWN-FILESHARE is the name of your new repository:
+
+```
+git clone https://github.com/OnSebii/FileShare MY-OWN-FILESHARE
+cd MY-OWN-FILESHARE
+npm start FileShare
+```
