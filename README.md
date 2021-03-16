@@ -18,4 +18,8 @@ npm -v
 
 ### Installing PostgreSQL
 
-You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgresql.org/download/) for your operating system.
+You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgresql.org/download/) for your operating system. After downloading PostgreSQL, follow the next steps to import the database. Here you can download the database [Download](database).
+
+TODO beschreiben import database
+
+### Installing FileShare
