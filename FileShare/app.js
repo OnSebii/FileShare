@@ -2,9 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const path = require('path');
+require('dotenv').config();
 
 require('colors');
-require('dotenv').config();
 
 // Time interval delete files after a week
 // const time = 1000 * 3600 * 24 * 7;
