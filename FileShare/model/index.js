@@ -38,12 +38,20 @@ async function getUserFiles(email) {
   // ...
 }
 async function addUserFiles(email) {
-  const { rows } = await db.query('INSERT INTO files(name, path, upload_date) VALUES ($1, $2, $3);', [email]);
-  // Info: Call addUserFileConnection()
+  const { rows } = await db.query('INSERT INTO files(name, path, upload_date) VALUES ($1, $2, $3);', [name, path, upload_date]);
+  // Info: Call addUserFileConnection(data_id)
   // ...
 }
-async function addUserFileConnection(email) {
-  const { rows } = await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, $3)', [email]);
+async function addUserFileConnection(email, data_id) {
+  const { rows } = await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, $3)', [email, data_id, admin]);
+  // ...
+}
+async function setSynonymFilePath(id, synonym_path) {
+  const { rows } = await db.query('UPDATE files SET synonym_path = $1 WHERE id = $2;', [synonym_path, id]);
+  // ...
+}
+async function updateUserFile(id, synonym_path) {
+  const { rows } = await db.query('UPDATE files SET synonym_path = $1 WHERE id = $2;', [synonym_path, id]);
   // ...
 }
 
