@@ -1,4 +1,5 @@
 const fs = require('fs-extra');
+const path = require('path');
 
 function writeFile(email, file) {
   const dir = path.join(__dirname, email);
