@@ -9,7 +9,6 @@ function writeFile(email, file) {
     console.log(err);
   }
 }
-
 function writeFileAnonym(file) {
   const dir = path.join(__dirname, 'anonym');
   try {
@@ -75,7 +74,7 @@ async function addUserFiles(email) {
   // ...
 }
 async function addUserFileConnection(email) {
-  const { rows } = await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ('palatin.d02@htlwienwest.at', 2, true);, [email]);
+  const { rows } = await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, $3)', [email]);
   // ...
 }
 
