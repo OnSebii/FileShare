@@ -4,11 +4,18 @@ This project was developed by Dominik and Sebastian. Share your files on our [we
 
 ## Getting started
 
-## Installing NodeJs
+### Installing NodeJs
 
-You will need NodeJs ( > version 14.0 ) and npm. To check whether it's already installed on your system, open up a terminal window and type `node -v` at the command prompt. For example, you should see something similar to the following:
+You will need NodeJs ( > version 14.0 ) and npm. To check whether it's already installed on your system, open up a terminal window and type `node -v` or `npm -v` at the command prompt. For example, you should see something similar to the following:
 
 ```
 node -v
 v14.10.0
+
+npm -v
+6.14.10
 ```
+
+### Installing PostgreSQL
+
+You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgresql.org/download/) for your operating system.
