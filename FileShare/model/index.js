@@ -1,38 +1,5 @@
 const db = require('../db');
 
-function writeFile(email, file) {
-  const dir = path.join(__dirname, email);
-  try {
-    if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
-    //TODO File speichern
-  } catch (err) {
-    console.log(err);
-  }
-}
-function writeFileAnonym(file) {
-  const dir = path.join(__dirname, 'anonym');
-  try {
-    if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
-    //TODO File speichern
-  } catch (err) {
-    console.error(err);
-  }
-}
-function getFile(email, fileName) {
-  const dir = path.join(__dirname, email);
-  try {
-    if (fs.existsSync(dir) == false) {
-      return { code: 404, message: 'Files from mail not found' };
-    }
-    return {
-      code: 200,
-      message: 'Files', //TODO file
-    };
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 async function loginUser(email) {
   const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [email]);
   // ...
@@ -65,7 +32,9 @@ async function deleteUser(email) {
 }
 
 async function getUserFiles(email) {
-  const { rows } = await db.query('SELECT id, name, path, synonym_path, upload_date, admin FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1;', [email]);
+  const { rows } = await db.query('SELECT id, name, path, synonym_path, upload_date, admin FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1;', [
+    email,
+  ]);
   // ...
 }
 async function addUserFiles(email) {
