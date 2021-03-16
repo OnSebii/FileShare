@@ -7,6 +7,7 @@ function writeFile(email, file) {
   const dir = path.join(__dirname, email);
   try {
     if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
+    //TODO File speichern
   } catch (err) {
     console.log(err);
   }
@@ -30,7 +31,7 @@ function getFile(email, fileName) {
     }
     return {
       code: 200,
-      message: 'Files',
+      message: 'Files', //TODO file
     };
   } catch (err) {
     console.error(err);
@@ -45,7 +46,3 @@ setInterval(function () {
 }, time);
 
 console.log('2');
-
-function getFiles(username) {}
-
-function getFile(username) {}
