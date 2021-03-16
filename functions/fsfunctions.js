@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 //TODO Console.error durch error function ersetzen
@@ -37,9 +37,11 @@ function getFile(email, fileName) {
   }
 }
 
-const time = 1000 * 3600 * 24 * 7;
+const time = 3600 * 24 * 7;
+console.log(time);
 setInterval(function () {
-  console.log('1');
+  const dir = path.join(__dirname, 'anonym');
+  fs.emptyDirSync(dir);
 }, time);
 
 console.log('2');
@@ -47,5 +49,3 @@ console.log('2');
 function getFiles(username) {}
 
 function getFile(username) {}
-
-// writeFile('lang.s03@htlwienwest.at');
