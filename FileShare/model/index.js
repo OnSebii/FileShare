@@ -1,7 +1,7 @@
 const db = require('../db');
 
 //////////////////////////////////////////////////////////////// LOGIN/REGISTER
-async function loginUser(email) {
+async function loginUser(email, password) {
   const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [
     email,
   ]);
@@ -172,4 +172,4 @@ async function deleteUserFile(id) {
 //   };
 // }
 
-module.exports = {};
+module.exports = { registerUser };

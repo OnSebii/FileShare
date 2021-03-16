@@ -6,15 +6,6 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
-const notFoundHandler = (req, res) => {
-  console.log(`Not Found => ${req.originalUrl}`.blue);
-  res.status(404).json({
-    code: 404,
-    data: 'The requested route does not exist on this server',
-  });
-};
-
 module.exports = {
-  errorHandler,
-  notFoundHandler
+  errorHandler
 };

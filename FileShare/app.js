@@ -14,7 +14,7 @@ require('colors');
 
 const app = express();
 const routes = require('./routes');
-const { errorHandler, notFoundHandler } = require('./middleware');
+const { errorHandler } = require('./middleware');
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(morgan('dev'));
@@ -23,8 +23,6 @@ app.use(helmet());
 app.use(express.json());
 
 app.use('/', routes);
-app.use(notFoundHandler);
-
 app.use(errorHandler);
 
 const PORT = process.env.PORT ?? 5000;
