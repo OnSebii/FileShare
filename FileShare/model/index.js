@@ -10,7 +10,6 @@ function writeFile(email, file) {
   }
 }
 
-<<<<<<< Updated upstream
 function writeFileAnonym(file) {
   const dir = path.join(__dirname, 'anonym');
   try {
@@ -20,7 +19,6 @@ function writeFileAnonym(file) {
     console.error(err);
   }
 }
-
 function getFile(email, fileName) {
   const dir = path.join(__dirname, email);
   try {
@@ -35,16 +33,6 @@ function getFile(email, fileName) {
     console.error(err);
   }
 }
-
-// async function getEmployees() {
-//   const { rows } = await db.query('SELECT * FROM employees');
-//   return {
-//     code: 200,
-//     data: rows,
-//   };
-// }
-=======
-
 
 async function loginUser(email) {
   const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [email]);
@@ -90,7 +78,6 @@ async function addUserFileConnection(email) {
   const { rows } = await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ('palatin.d02@htlwienwest.at', 2, true);, [email]);
   // ...
 }
->>>>>>> Stashed changes
 
 // async function getEmployee(id) {
 //   const { rows } = await db.query('SELECT * FROM employees WHERE employee_id = $1', [id]);
