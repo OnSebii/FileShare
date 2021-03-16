@@ -1,7 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const router = express.Router();
-const {} = require('../model/functions');
+const {} = require('../model');
 
 router.post(
   '/upload',
