@@ -1,5 +1,6 @@
 const db = require('../db');
 
+//////////////////////////////////////////////////////////////// LOGIN/REGISTER
 async function loginUser(email) {
   const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [
     email,
@@ -16,6 +17,7 @@ async function registerUser(email, password, firstname, lastname) {
   // ...
 }
 
+//////////////////////////////////////////////////////////////// USER DATA
 async function getUserData(email) {
   const {
     rows,
@@ -29,7 +31,7 @@ async function updateUserName(email, firstname, lastname) {
   const {
     rows,
   } = await db.query(
-    'UPDATE users SET firstname=$1, lastname=$2 WHERE email = $3',
+    'UPDATE users SET firstname = $1, lastname = $2 WHERE email = $3',
     [firstname, lastname, email],
   );
   // ...
@@ -37,7 +39,7 @@ async function updateUserName(email, firstname, lastname) {
 async function updateUserPassword(email, password) {
   const {
     rows,
-  } = await db.query('UPDATE users SET password=$1 WHERE email = $2', [
+  } = await db.query('UPDATE users SET password = $1 WHERE email = $2', [
     password,
     email,
   ]);
@@ -54,32 +56,24 @@ async function deleteUserFiles(email) {
 }
 async function deleteUser(email) {
   // Info: Call deleteUserFiles()
-  const { rows } = await db.query('DELETE FROM users WHERE email = $1;', [
+  const { rows } = await db.query('DELETE FROM users WHERE email = $1', [
     email,
   ]);
   // ...
 }
 
-async function getUserFiles(email) {
+//////////////////////////////////////////////////////////////// USER FILES
+async function addUserFiles(name, path, upload_date) {
   const {
     rows,
   } = await db.query(
-    'SELECT id, name, path, synonym_path, upload_date, admin FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1;',
-    [email],
-  );
-  // ...
-}
-async function addUserFiles(email) {
-  const {
-    rows,
-  } = await db.query(
-    'INSERT INTO files(name, path, upload_date) VALUES ($1, $2, $3);',
+    'INSERT INTO files(name, path, upload_date) VALUES ($1, $2, $3)',
     [name, path, upload_date],
   );
   // Info: Call addUserFileConnection(data_id)
   // ...
 }
-async function addUserFileConnection(email, data_id) {
+async function addUserFileConnection(email, data_id, admin) {
   const {
     rows,
   } = await db.query(
@@ -91,19 +85,32 @@ async function addUserFileConnection(email, data_id) {
 async function setSynonymFilePath(id, synonym_path) {
   const {
     rows,
-  } = await db.query('UPDATE files SET synonym_path = $1 WHERE id = $2;', [
+  } = await db.query('UPDATE files SET synonym_path = $1 WHERE id = $2', [
     synonym_path,
     id,
   ]);
   // ...
 }
-async function updateUserFile(id, synonym_path) {
+async function updateUserFile(id, name) {
   const {
     rows,
-  } = await db.query('UPDATE files SET synonym_path = $1 WHERE id = $2;', [
-    synonym_path,
-    id,
-  ]);
+  } = await db.query(
+    'UPDATE files SET name = $1 WHERE id = (SELECT DISTINCT id FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $2)',
+    [name, email],
+  );
+  // ...
+}
+async function getUserFiles(email) {
+  const {
+    rows,
+  } = await db.query(
+    'SELECT id, name, path, synonym_path, upload_date, admin FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1',
+    [email],
+  );
+  // ...
+}
+async function deleteUserFile(id) {
+  const { rows } = await db.query('DELETE FROM files WHERE id = $1', [id]);
   // ...
 }
 
