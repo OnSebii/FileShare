@@ -2,14 +2,45 @@ TODO Farben anpassen html,
 body {
   height: 100vh;
 }
-
-.form-signin {
+form {
   width: 100%;
   max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+  margin-bottom: 20vh;
 }
 
-.login-button {
-  background-color: #2db194;
+.icon {
+  font-size: 3.5em;
+  color: #2aa58a;
+}
+
+/* Dark Mode Input */
+.input-field {
+  color: #fff;
+  background-color: #444444;
+  border: 1px solid #686868;
+}
+.input-field:focus {
+  color: #fff;
+  background-color: #505050;
+}
+.input-field:active {
+  color: #fff;
+  background-color: #686868;
+}
+.input-field::placeholder {
+  color: #fff;
+}
+
+/* Customized Button Colors */
+.highlighted-button {
+  background-color: #2aa58a;
+}
+.highlighted-button:hover {
+  background-color: #268a74;
+}
+.background-button {
+  background-color: #585858;
+}
+.background-button:hover {
+  background-color: #494949;
 }
