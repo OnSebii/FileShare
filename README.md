@@ -20,7 +20,12 @@ npm -v
 
 You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgresql.org/download/) for your operating system. After downloading PostgreSQL, follow the next steps to import the database. Here you can [download](database) the database.
 
-TODO beschreiben import database
+If you have downloaded [PostgreSQL](https://www.postgresql.org/download/) and our [SQL File](database) you can start to import the database. Type this into your console:
+
+```
+
+psql -U username dbname < database_v1.sql
+```
 
 ### Installing FileShare
 
@@ -31,3 +36,11 @@ git clone https://github.com/OnSebii/FileShare MY-OWN-FILESHARE
 cd MY-OWN-FILESHARE
 npm start FileShare
 ```
+
+### ToDo
+
+- Item 1
+- Item 2
+
+* Item 1
+* Item 2
