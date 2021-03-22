@@ -37,10 +37,6 @@ cd MY-OWN-FILESHARE
 npm start FileShare
 ```
 
-### ToDo
+### Github ToDo
 
-- Item 1
-- Item 2
-
-* Item 1
-* Item 2
+- [ ] Rework readme links
