@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <nav
+      class="container navbar navbar-expand-lg navbar-dark bg-dark mt-4 py-2 rounded"
+    >
+      <a class="navbar-brand ml-2" href="#"
+        ><span class="font-weight-bold">FileShare</span>
+        <span class="font-weight-thin text-light">Dashboard</span></a
+      >
+      <div class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link material-icons pr-0 profile" href="#"
+              >account_circle</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-3 bg-dark rounded">
+      <form class="px-2 py-3">
+        <legend class="mb-3">My Account</legend>
+        <div class="row">
+          <div class="form-group col-6 pr-2">
+            <label for="inputFirst">First name</label>
+            <input
+              type="password"
+              class="form-control input-field"
+              id="inputFirst"
+              placeholder="First name"
+            />
+          </div>
+          <div class="form-group col-6 pl-2">
+            <label for="inputLast">Last name</label>
+            <input
+              type="password"
+              class="form-control input-field"
+              id="inputLast"
+              placeholder="Last name"
+            />
+          </div>
+          <div class="form-group col-6 pr-2">
+            <label for="inputEmail">Email address</label>
+            <input
+              type="email"
+              class="form-control input-field"
+              id="inputEmail"
+              placeholder="Email address"
+            />
+            <small class="form-text text-muted"
+              >You have to confirm a new address.</small
+            >
+          </div>
+          <div class="form-group col-6 pl-2">
+            <label for="inputPassword">Password</label>
+            <input
+              type="password"
+              class="form-control input-field"
+              id="inputPassword"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+        <button class="btn highlighted-button mb-1">Save</button>
+      </form>
+    </div>
+
+    <div class="container mt-3 bg-dark rounded">...</div>
+  </body>
+</html>
