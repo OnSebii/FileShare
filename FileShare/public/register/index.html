@@ -11,17 +11,37 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <title>Login Page - File Share</title>
+    <title>Register Page - File Share</title>
   </head>
   <body class="d-flex flex-column justify-content-center align-items-center">
     <!-- Sign In Form -->
     <form class="d-flex flex-column align-items-center p-4 bg-dark rounded">
-      <p class="icon mt-2 mb-1"><i class="fas fa-users"></i></p>
-      <h4 class="font-weight-normal">Please sign in</h4>
+      <p class="icon mt-2 mb-1"><i class="fas fa-user-plus"></i></p>
+      <h4 class="font-weight-normal">Create an account</h4>
+
+      <label for="inputFirst" class="mt-3 w-100">First name</label>
+      <input
+        type="text"
+        id="inputFirst"
+        class="form-control input-field"
+        placeholder="First name"
+        required
+        autofocus
+      />
+
+      <label for="inputLast" class="mt-3 w-100">Last name</label>
+      <input
+        type="text"
+        id="inputLast"
+        class="form-control input-field"
+        placeholder="Last name"
+        required
+        autofocus
+      />
 
       <label for="inputEmail" class="mt-3 w-100">Email address</label>
       <input
-        type="email"
+        type="text"
         id="inputEmail"
         class="form-control input-field"
         placeholder="Email address"
@@ -38,10 +58,10 @@
         required
       />
       <div class="mt-2">
-        <button class="btn mt-3 highlighted-button" type="submit">Login</button>
-        <button class="btn background-button mt-3" type="submit">
+        <button class="btn mt-3 highlighted-button" type="submit">
           Register
         </button>
+        <button class="btn background-button mt-3" type="submit">Login</button>
       </div>
 
       <p class="mt-3 mb-3 text-muted">&copy; 2021 Fileshare</p>
