@@ -34,7 +34,7 @@ To create your own FileShare and serve it locally, where MY-OWN-FILESHARE is the
 ```
 git clone https://github.com/OnSebii/FileShare MY-OWN-FILESHARE
 cd MY-OWN-FILESHARE
-npm start FileShare
+npm start FileShare or npm run
 ```
 
 ### Github ToDo
