@@ -46,3 +46,5 @@ setInterval(function () {
 }, time);
 
 console.log('2');
+
+writeFile("abc@test.at")
