@@ -48,6 +48,10 @@ cd MY-OWN-FILESHARE
 npm run build
 ```
 
+### Bug reports
+
+If you encounter any errors, report them in Github (issues)[issues] tab.
+
 ### Github ToDo
 
 - [ ] Rework readme links
