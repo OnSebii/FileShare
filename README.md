@@ -1,6 +1,6 @@
 # FileShare
 
-This project was developed by Dominik and Sebastian. Share your files on our [website](123.123). If you want to set up our project on your own server, download our project from Github. Check out our installation guide for more informations.
+This project was developed by Dominik and Sebastian. Share your files on our [website](123.123) or host it on your own. If you want to set up our project on your own server, download our project from Github. Check out our installation guide for more informations.
 
 ## Getting started
 
@@ -29,12 +29,23 @@ psql -U username dbname < database_v1.sql
 
 ### Installing FileShare
 
-To create your own FileShare and serve it locally, where MY-OWN-FILESHARE is the name of your new repository:
+To create your own FileShare and serve it locally just follow the next steps below.
 
 ```
 git clone https://github.com/OnSebii/FileShare MY-OWN-FILESHARE
 cd MY-OWN-FILESHARE
-npm start FileShare or npm run
+npm run serve
+```
+
+If everything worked you should see the website when you type localhost:8080 in your browser.
+
+### Build FileShare
+
+ToDo
+
+```
+cd MY-OWN-FILESHARE
+npm run build
 ```
 
 ### Github ToDo
