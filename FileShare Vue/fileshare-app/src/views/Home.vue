@@ -154,6 +154,7 @@
           <span class="footer-title">Links</span>
           <br />
           <a target="_blank" href="https://material.io/resources/icons/">Icons</a>
+          <router-link to="/login">Login</router-link>
           <router-link to="/help#tos">Terms Of Service</router-link>
           <router-link to="/help#pp">Privacy Policy</router-link>
         </div>
