@@ -16,7 +16,7 @@
       <label for="inputPassword" class="mt-3 w-100">Password</label>
       <input type="password" id="inputPassword" class="form-control input-field" placeholder="Password" required />
       <div class="mt-2">
-        <button class="btn mt-3 highlighted-button" type="submit">
+        <button class="btn mt-3 highlighted-button mr-1" type="submit">
           Register
         </button>
         <button class="btn background-button mt-3" type="submit">Login</button>
