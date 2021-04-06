@@ -23,8 +23,7 @@ You also need PostgreSQL as Database. Download [PostgreSQL](https://www.postgres
 If you have downloaded [PostgreSQL](https://www.postgresql.org/download/) and our [SQL File](database) you can start to import the database. Type this into your console:
 
 ```
-
-psql -U username dbname < database_v1.sql
+psql -U username < database_v2.sql
 ```
 
 ### Installing FileShare
