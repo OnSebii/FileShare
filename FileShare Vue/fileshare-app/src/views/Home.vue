@@ -23,6 +23,10 @@
         <h1 class="glitch">File Share</h1>
         <!-- TODO: Subtext hinzufügen. -->
         <h5>Subtext</h5>
+        <div class="custom-file w-25">
+          <input type="file" name="upload" class="custom-file-input" id="inputGroupFile02" />
+          <label class="custom-file-label custom-input text-left" for="inputGroupFile02">Please select a file.</label>
+        </div>
       </div>
       <div class="text-center">
         <a class="" id="subtitle"></a>
@@ -221,10 +225,28 @@ span {
   padding-top: 5%;
   text-align: center;
 }
+
+.custom-file-label {
+  background-color: #444444;
+}
 </style>
 
 <script>
 export default {
   name: 'Home',
+  data() {
+    return {};
+  },
+  methods: {
+    async uploadImage() {
+      try {
+        const { data } = await axios({
+          url: '',
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 };
 </script>
