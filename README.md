@@ -40,7 +40,7 @@ If everything worked you should see the website when you type localhost:8080 in 
 
 ### Build FileShare
 
-ToDo
+You can easily build this project and upload it to your own server.
 
 ```
 cd MY-OWN-FILESHARE
