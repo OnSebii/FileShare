@@ -1,6 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const router = express.Router();
+<<<<<<< Updated upstream
 const {
   checkUser,
   registerUser,
@@ -14,6 +15,11 @@ const {
   updateUserFile,
   deleteUserFile,
 } = require('../model');
+=======
+const { registerUser } = require('../model');
+const multer = require('multer');
+const upload = multer();
+>>>>>>> Stashed changes
 
 //////////////////////////////////////////////////////////////// LOGIN/REGISTER
 router.get(
@@ -24,6 +30,7 @@ router.get(
   }),
 );
 router.post(
+<<<<<<< Updated upstream
   '/register',
   asyncHandler(async (req, res) => {
     // TODO
@@ -36,6 +43,15 @@ router.post(
       req.body.lastname,
     );
     res.status(result.code).json(result);
+=======
+  '/upload',
+  upload.none(),
+  asyncHandler(async (req, res) => {
+    // const result = await req.body;
+    // res.status(result.code).json(result);
+    console.log(req.files);
+    res.status(200).json('');
+>>>>>>> Stashed changes
   }),
 );
 
