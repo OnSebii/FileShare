@@ -21,3 +21,12 @@ Content-Type: application/json
     "first_name": "Willy",
     "last_name": "Wonly"
 }
+###
+post http://127.0.0.1:3000
+Content-Type: application/json
+
+{
+    "title_of_courtesy": "HERR",
+    "first_name": "Willy",
+    "last_name": "Wonly"
+}
