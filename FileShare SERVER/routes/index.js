@@ -14,7 +14,6 @@ const {
   updateUserFile,
   deleteUserFile,
 } = require('../model');
-const { registerUser } = require('../model');
 const multer = require('multer');
 const upload = multer();
 
@@ -39,6 +38,10 @@ router.post(
       req.body.lastname,
     );
     res.status(result.code).json(result);
+  }),
+);
+
+router.post(
   '/upload',
   upload.none(),
   asyncHandler(async (req, res) => {
