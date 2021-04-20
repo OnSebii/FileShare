@@ -36,9 +36,8 @@ router.post(
 );
 
 router.post(
-  '/upload',
+  '/upload-anon',
   asyncHandler(async (req, res) => {
-    // console.log(req.files);
     const result = await uploadFile('anon', req.files.upload);
     res.status(result.status).json(result.data);
   }),
@@ -56,7 +55,7 @@ router.get(
   }),
 );
 router.post(
-  '/user-information',
+  '/user-email',
   asyncHandler(async (req, res) => {
     // TODO
     // let result;
@@ -88,7 +87,7 @@ router.delete(
 
 //////////////////////////////////////////////////////////////// USER FILES
 router.post(
-  '/file',
+  '/upload',
   asyncHandler(async (req, res) => {
     // let result;
     // if(await checkUser(email, password))
@@ -122,27 +121,35 @@ router.delete(
   '/file',
   asyncHandler(async (req, res) => {
     // const checkUser = await checkOwner(email, password);
-    // await deleteUserFile(id, name)
-  }),
-);
-
-router.post(
-  '/upload',
-  asyncHandler(async (req, res) => {
-    // const result = await req.body;
-    // res.status(result.code).json(result);
-    console.log(req.files.upload);
+    // await deleteUserFile(id)
   }),
 );
 
 router.get(
-  '/:path',
+  '/anon/:path',
   asyncHandler(async (req, res) => {
     // TODO path zum File zurückgeben
     // Wenn das File nicht vorhanden ist: 404
+    // if (syn == "") 
     //res.status(result.code).send();
+
+    // path -> echte
+    // syn_path -> app.get(/syn, func() { schau in der db nach syn_path für path -> return ./upload/email/file })
   }),
 );
+router.get(
+  '/:syn_path',
+  asyncHandler(async (req, res) => {
+    // TODO path zum File zurückgeben
+    // Wenn das File nicht vorhanden ist: 404
+    // if (syn == "") 
+    //res.status(result.code).send();
+
+    // path -> echte
+    // syn_path -> app.get(/syn, func() { schau in der db nach syn_path für path -> return ./upload/email/file })
+  }),
+);
+
 
 // router.get(
 //   '/employees',

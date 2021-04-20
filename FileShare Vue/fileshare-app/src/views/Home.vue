@@ -251,7 +251,7 @@ export default {
 
       try {
         const { data } = await axios({
-          url: 'http://127.0.0.1:3000/upload',
+          url: 'http://127.0.0.1:3000/upload-anon',
           method: 'post',
           contentType: 'multipart/form-data',
           data: formData,
