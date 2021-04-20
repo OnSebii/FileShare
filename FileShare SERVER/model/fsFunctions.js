@@ -13,6 +13,7 @@ function writeFile(email, file) {
 
 function writeFileAnonym(file) {
   const dir = path.join(__dirname, 'anonym');
+
   try {
     if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
     //TODO File speichern

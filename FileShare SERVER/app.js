@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const path = require('path');
 const expressFileupload = require('express-fileupload');
-const formData = require('express-form-data');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -24,7 +23,6 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(expressFileupload());
 app.use(cors());
-app.use(formData.parse());
 
 app.use(express.json());
 

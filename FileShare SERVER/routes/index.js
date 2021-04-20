@@ -13,9 +13,8 @@ const {
   setSynonymFilePath,
   updateUserFile,
   deleteUserFile,
+  uploadFile,
 } = require('../model');
-const multer = require('multer');
-const upload = multer();
 
 //////////////////////////////////////////////////////////////// LOGIN/REGISTER
 router.get(
@@ -31,24 +30,17 @@ router.post(
     // TODO
     // Hashing: const password = bcrypt(req.body.password);
     let password = req.body.password;
-    const result = await registerUser(
-      req.body.email,
-      password,
-      req.body.firstname,
-      req.body.lastname,
-    );
+    const result = await registerUser(req.body.email, password, req.body.firstname, req.body.lastname);
     res.status(result.code).json(result);
   }),
 );
 
 router.post(
   '/upload',
-  upload.none(),
   asyncHandler(async (req, res) => {
-    // const result = await req.body;
-    // res.status(result.code).json(result);
-    console.log(req.files);
-    res.status(200).json('');
+    // console.log(req.files);
+    const result = await uploadFile('anon', req.files.upload);
+    res.status(result.status).json(result.data);
   }),
 );
 

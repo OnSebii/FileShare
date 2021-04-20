@@ -24,7 +24,7 @@
         <!-- TODO: Subtext hinzufügen. -->
         <h5>Subtext</h5>
         <div class="custom-file w-25">
-          <input type="file" name="upload" ref="upload" class="custom-file-input" id="inputGroupFile02" v-bind="file" @change="onFileChange(this)" />
+          <input type="file" name="upload" ref="upload" class="custom-file-input" id="inputGroupFile02" v-bind="file" @change="onFileChange" />
           <label class="custom-file-label custom-input text-left" for="inputGroupFile02">Please select a file.</label>
         </div>
         <button class="btn btn-primary" @click="uploadFile">Upload</button>
@@ -242,22 +242,19 @@ export default {
     };
   },
   methods: {
-    onFileChange() {
-      this.file = this.$refs.upload.files[0];
-      console.log(this.file);
+    onFileChange(e) {
+      this.file = e.target.files[0];
     },
     async uploadFile() {
       let formData = new FormData();
-      formData.append('file', this.file);
+      formData.append('upload', this.file);
 
       try {
         const { data } = await axios({
           url: 'http://127.0.0.1:3000/upload',
           method: 'post',
           contentType: 'multipart/form-data',
-          data: {
-            formData,
-          },
+          data: formData,
         });
         console.log(data);
       } catch (error) {
