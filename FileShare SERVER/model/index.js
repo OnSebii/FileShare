@@ -92,7 +92,8 @@ async function deleteUserFile(id) {
 
 async function uploadFile(user, file) {
   const dir = path.join(__dirname, '../upload', user);
-  const uploadedFile = path.join(__dirname, `../upload/anon/${shortid.generate()}.${file.name.split('.')[1]}`);
+  const cstmID = shortid.generate();
+  const uploadedFile = path.join(__dirname, `../upload/anon/${cstmID}.${file.name.split('.')[1]}`);
   try {
     if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
     fs.writeFileSync(uploadedFile, file.data);
@@ -101,7 +102,7 @@ async function uploadFile(user, file) {
   }
 
   return {
-    data: 'uploaded',
+    data: cstmID,
     status: 200,
   };
 }
