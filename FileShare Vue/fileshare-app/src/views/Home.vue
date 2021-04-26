@@ -25,7 +25,7 @@
         <h5>Subtext</h5>
         <div class="custom-file w-25">
           <input type="file" name="upload" ref="upload" class="custom-file-input" id="inputGroupFile02" v-bind="file" @change="onFileChange" />
-          <label class="custom-file-label custom-input text-left" for="inputGroupFile02">Please select a file.</label>
+          <label class="custom-file-label custom-input text-left" for="inputGroupFile02">{{ fileName }}</label>
         </div>
         <button class="btn btn-primary" @click="uploadFile">Upload</button>
       </div>
@@ -170,6 +170,41 @@
   </div>
 </template>
 
+<script>
+import axios from 'axios';
+export default {
+  name: 'Home',
+  data() {
+    return {
+      file: '',
+      fileName: 'Please select a file.',
+    };
+  },
+  methods: {
+    onFileChange(e) {
+      this.file = e.target.files[0];
+      this.fileName = this.file.name;
+    },
+    async uploadFile() {
+      let formData = new FormData();
+      formData.append('upload', this.file);
+
+      try {
+        const { data } = await axios({
+          url: 'http://127.0.0.1:3000/upload-anon',
+          method: 'post',
+          contentType: 'multipart/form-data',
+          data: formData,
+        });
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+};
+</script>
+
 <style scoped>
 body {
   background-color: #171717;
@@ -231,36 +266,3 @@ span {
   background-color: #444444;
 }
 </style>
-
-<script>
-import axios from 'axios';
-export default {
-  name: 'Home',
-  data() {
-    return {
-      file: '',
-    };
-  },
-  methods: {
-    onFileChange(e) {
-      this.file = e.target.files[0];
-    },
-    async uploadFile() {
-      let formData = new FormData();
-      formData.append('upload', this.file);
-
-      try {
-        const { data } = await axios({
-          url: 'http://127.0.0.1:3000/upload-anon',
-          method: 'post',
-          contentType: 'multipart/form-data',
-          data: formData,
-        });
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-};
-</script>
