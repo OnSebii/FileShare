@@ -2,35 +2,23 @@ const db = require('../db');
 const fs = require('fs');
 const path = require('path');
 const shortid = require('shortid');
-const bcrypt = require('bcrypt');
-
-// Password hash
-function hash(password) {
-  const saltRounds = 10;
-
-  bcrypt.genSalt(saltRounds, function (err, salt) {
-    bcrypt.hash(password, salt, function (err, hash) {
-      return hash;
-    });
-  });
-}
 
 //////////////////////////////////////////////////////////////// CHECK/REGISTER
 async function checkUser(email, password) {
-  const {
-    rows,
-  } = await db.query('SELECT 1 FROM users WHERE email = $1 AND password = $2', [
-    email,
-    hash(password),
-  ]);
-  return rows.length > 0;
+  const { rows } = await db.query(
+    'SELECT password FROM users WHERE email = $1',
+    [email],
+  );
+  // TODO HASH: Compare "password" with "rows.password" and return result
+  return result;
 }
 async function registerUser(email, password, firstname, lastname) {
+  // TODO HASH: "password" for new user
   const {
     rows,
   } = await db.query(
     'INSERT INTO users(email, password, firstname, lastname) VALUES ($1, $2, $3, $4) RETURNING email',
-    [email, hash(password), firstname, lastname],
+    [email, password, firstname, lastname],
   );
   return {
     data: rows.email,
@@ -64,10 +52,11 @@ async function updateUserName(email, firstname, lastname) {
   };
 }
 async function updateUserPassword(email, password) {
+  // TODO HASH: "password" for new password
   const {
     rows,
   } = await db.query('UPDATE users SET password = $1 WHERE email = $2', [
-    hash(password),
+    password,
     email,
   ]);
   return {

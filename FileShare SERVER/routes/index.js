@@ -3,19 +3,19 @@ const asyncHandler = require('express-async-handler');
 const router = express.Router();
 const {
   // RETURNING DATA
-  checkUser, // (email, password) -> bool
-  registerUser, // (email, password, firstname, lastname) -> email for login page
-  getUserData, // (email) -> obj(id, name, path, synonym_path, upload_date, admin)
-  updateUserName, // (email, firstname, lastname) -> obj(firstname, lastname)
-  updateUserPassword, // (email, password) -> email
-  deleteUser, // (email) -> email
-  addUserFile, // (email, name) -> file_id
-  addUserFileConnection, // (email, data_id, admin) -> obj(email, data_id) / false if not permitted
-  setSynonymFilePath, // (id) -> synonym_path / false if not permitted
-  updateUserFile, // (email, id, name) -> id / false if not permitted
-  deleteUserFile, // (email, id) -> id / false if not permitted
-  uploadFile, // (user, file) -> cstmID
-  // deleteFile (user, path) -> bool
+  checkUser, // (email, password) -> bool [Page: Login]
+  registerUser, // (email, password, firstname, lastname) -> email for login page [Page: Register]
+  getUserData, // (email) -> obj(id, name, path, synonym_path, upload_date, admin) [Page: Dashboard]
+  updateUserName, // (email, firstname, lastname) -> obj(firstname, lastname) [Page: Account]
+  updateUserPassword, // (email, password) -> email [Page: Account]
+  deleteUser, // (email) -> email [Page: Account]
+  addUserFile, // (email, name) -> file_id [Page: Dashboard]
+  addUserFileConnection, // (email, data_id, admin) -> obj(email, data_id) / false if not permitted [Page: Dashboard]
+  setSynonymFilePath, // (id) -> synonym_path / false if not permitted [Page: Dashboard]
+  updateUserFile, // (email, id, name) -> id / false if not permitted [Page: Dashboard]
+  deleteUserFile, // (email, id) -> id / false if not permitted [Page: Dashboard]
+  uploadFile, // (user, file) -> cstmID [Page: Home/Dashboard]
+  // deleteFile (user, path) -> bool [Page: Dashboard] and called regularly via cron job
 } = require('../model');
 
 // TODO Wait until express sessions are implemented: Check user/password combination for user/file actions
