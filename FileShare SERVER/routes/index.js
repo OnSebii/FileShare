@@ -10,7 +10,7 @@ const {
   updateUserPassword, // (email, password) -> email [Page: Account]
   deleteUser, // (email) -> email [Page: Account]
   addUserFile, // (email, name) -> file_id [Page: Dashboard]
-  addUserFileConnection, // (email, data_id, admin) -> obj(email, data_id) / false if not permitted [Page: Dashboard]
+  addUserFileConnection, // (email, data_id) -> obj(email, data_id) / false if not permitted [Page: Dashboard]
   setSynonymFilePath, // (id) -> synonym_path / false if not permitted [Page: Dashboard]
   updateUserFile, // (email, id, name) -> id / false if not permitted [Page: Dashboard]
   deleteUserFile, // (email, id) -> id / false if not permitted [Page: Dashboard]
@@ -24,7 +24,12 @@ const {
 router.get(
   '/login',
   asyncHandler(async (req, res) => {
-    const checkUser = await checkUser(email, password);
+    const correct = await checkUser(email, password);
+    if (correct) {
+      const result = await getUserData(email);
+      res.status(result.status).json(result);
+      // TODO: Set login on true
+    } else res.status(500).json(false);
   }),
 );
 router.post(
@@ -50,42 +55,28 @@ router.post(
 );
 
 //////////////////////////////////////////////////////////////// USER DATA
-router.get(
-  '/user',
-  asyncHandler(async (req, res) => {
-    let result;
-    if (await checkUser(email, password)) result = await getUserData(email);
-    res.status(result.code).json(result);
-  }),
-);
 router.post(
   '/user-email',
   asyncHandler(async (req, res) => {
-    // TODO
-    // let result;
-    // if(await checkUser(email, password))
-    //    result = await updateUserName(email, firstname, lastname);
-    // res.status(result.code).json(result);
+    // TODO if loggedIn
+    const result = await updateUserName(email, firstname, lastname);
+    res.status(result.code).json(result);
   }),
 );
 router.post(
   '/user-password',
   asyncHandler(async (req, res) => {
-    // TODO
-    // let result;
-    // if(await checkUser(email, password))
-    //    result = await updateUserPassword(email, new_password)
-    // res.status(result.code).json(result);
+    // TODO if loggedIn
+    const result = await updateUserPassword(email, new_password);
+    res.status(result.code).json(result);
   }),
 );
 router.delete(
   '/user',
   asyncHandler(async (req, res) => {
-    // TODO
-    // let result;
-    // if(await checkUser(email, password))
-    //    result = await deleteUser(email, password)
-    // res.status(result.code).json(result);
+    // TODO if loggedIn
+    const result = await deleteUser(email, password);
+    res.status(result.code).json(result);
   }),
 );
 
@@ -93,41 +84,42 @@ router.delete(
 router.post(
   '/upload',
   asyncHandler(async (req, res) => {
-    // let result;
-    // if(await checkUser(email, password))
-    //    result = await addUserFile(email, name, path)
-    // res.status(result.code).json(result);
-    // if (email == "anonymous") await setSynonymFilePath(id from addUserFile)
+    // TODO if loggedIn
+    const result = await addUserFile(email, name, path);
+    res.status(result.code).json(result);
+    if (email == 'anonymous') await setSynonymFilePath(result.id);
   }),
 );
 router.post(
   '/add-user',
   asyncHandler(async (req, res) => {
-    // const checkUser = await checkOwner(email, password);
-    // await addUserFileConnection(email, data_id, false)
+    // TODO if loggedIn
+    const result = await addUserFileConnection(email, data_id);
   }),
 );
 router.post(
   '/add-synonym',
   asyncHandler(async (req, res) => {
-    // const checkUser = await checkOwner(email, password);
-    // await setSynonymFilePath(id, synonym_path)
+    // TODO if loggedIn
+    const result = await setSynonymFilePath(file_id);
   }),
 );
 router.put(
   '/file',
   asyncHandler(async (req, res) => {
-    // const checkUser = await checkOwner(email, password);
-    // await updateUserFile(id, name)
+    // TODO if loggedIn
+    const result = await updateUserFile(email, id, name);
   }),
 );
 router.delete(
   '/file',
   asyncHandler(async (req, res) => {
-    // const checkUser = await checkOwner(email, password);
-    // await deleteUserFile(id)
+    // TODO if loggedIn
+    const result = await deleteUserFile(email, id);
   }),
 );
+
+//
 
 router.get(
   '/anon/:path',

@@ -113,14 +113,14 @@ async function addUserFile(email, name) {
     status: 200,
   };
 }
-async function addUserFileConnection(email, data_id, admin) {
+async function addUserFileConnection(email, data_id) {
   const permission = await checkFileOwner(email, data_id);
   if (permission) {
     const {
       rows,
     } = await db.query(
-      'INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, $3) RETURNING email, data_id',
-      [email, data_id, admin],
+      'INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, false) RETURNING email, data_id',
+      [email, data_id],
     );
     return {
       data: rows,
