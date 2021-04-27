@@ -2,6 +2,7 @@ const db = require('../db');
 const fs = require('fs');
 const path = require('path');
 const shortid = require('shortid');
+const { hashPassword, comparePassword } = require('./bcFunctions');
 
 //////////////////////////////////////////////////////////////// CHECK/REGISTER
 async function checkUser(email, password) {
@@ -9,16 +10,16 @@ async function checkUser(email, password) {
     'SELECT password FROM users WHERE email = $1',
     [email],
   );
-  // TODO HASH: Compare "password" with "rows.password" and return result
+  const result = await comparePassword(password, rows.password);
   return result;
 }
 async function registerUser(email, password, firstname, lastname) {
-  // TODO HASH: "password" for new user
+  const hashedPassword = await hashPassword(password);
   const {
     rows,
   } = await db.query(
     'INSERT INTO users(email, password, firstname, lastname) VALUES ($1, $2, $3, $4) RETURNING email',
-    [email, password, firstname, lastname],
+    [email, hashedPassword, firstname, lastname],
   );
   return {
     data: rows.email,
@@ -52,11 +53,11 @@ async function updateUserName(email, firstname, lastname) {
   };
 }
 async function updateUserPassword(email, password) {
-  // TODO HASH: "password" for new password
+  const hashedPassword = await hashPassword(password);
   const {
     rows,
   } = await db.query('UPDATE users SET password = $1 WHERE email = $2', [
-    password,
+    hashedPassword,
     email,
   ]);
   return {
@@ -113,14 +114,14 @@ async function addUserFile(email, name) {
     status: 200,
   };
 }
-async function addUserFileConnection(email, data_id) {
+async function addUserFileConnection(email, data_id, new_email) {
   const permission = await checkFileOwner(email, data_id);
   if (permission) {
     const {
       rows,
     } = await db.query(
       'INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, false) RETURNING email, data_id',
-      [email, data_id],
+      [new_email, data_id],
     );
     return {
       data: rows,
@@ -133,6 +134,8 @@ async function setSynonymFilePath(email, id) {
   if (permission) {
     // TODO
     // Create random file path for synonym_path
+    const synonym_path =
+      shortid.generate() + shortid.generate() + shortid.generate();
     // Make file accessible from anywhere (add app.get route: synonym_path url to real path)
     const {
       rows,
