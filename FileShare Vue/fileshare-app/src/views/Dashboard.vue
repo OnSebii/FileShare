@@ -21,7 +21,7 @@
                   Edit Account
                 </p>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item p-0 mb-1 ">Logout</a>
+                <a class="dropdown-item p-0 mb-1 " to="/logout">Logout</a>
               </div>
             </li>
           </ul>

@@ -31,8 +31,8 @@ export default {
   name: 'Login',
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'lang.s03@htlwienwest.at',
+      password: '1',
     };
   },
   methods: {
