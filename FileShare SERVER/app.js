@@ -4,6 +4,8 @@ const helmet = require('helmet');
 const path = require('path');
 const expressFileupload = require('express-fileupload');
 const cors = require('cors');
+let session = require('express-session');
+
 require('dotenv').config();
 
 require('colors');
@@ -26,8 +28,25 @@ app.use(cors());
 
 app.use(express.json());
 
+let { PORT, NODE_ENV, SESSION_LIFETIME, SESSION_NAME, SESSION_SECRET } = process.env;
+
+app.use(
+  session({
+    secret: SESSION_SECRET,
+    name: SESSION_NAME,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: SESSION_LIFETIME * 1000 * 60 * 60,
+      httpOnly: false,
+      sameSite: true,
+      secure: NODE_ENV === 'production',
+    },
+  }),
+);
+
 app.use('/', routes);
+
 app.use(errorHandler);
 
-const PORT = process.env.PORT ?? 5000;
-app.listen(PORT);
+app.listen(PORT ?? 5000);

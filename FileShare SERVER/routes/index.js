@@ -21,13 +21,16 @@ const {
 // TODO Wait until express sessions are implemented: Check user/password combination for user/file actions
 
 //////////////////////////////////////////////////////////////// LOGIN/REGISTER
-router.get(
+router.post(
   // Required: email, password
   '/login',
   asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
     const correct = await checkUser(email, password);
     if (correct) {
       const result = await getUserData(email);
+
       res.status(result.status).json(result);
       // TODO: Set loggedIn on true / get parameters
       // Create cookie with email, bool
@@ -38,12 +41,7 @@ router.post(
   // Required: email, password, firstname, lastname
   '/register',
   asyncHandler(async (req, res) => {
-    const result = await registerUser(
-      req.body.email,
-      req.body.password,
-      req.body.firstname,
-      req.body.lastname,
-    );
+    const result = await registerUser(req.body.email, req.body.password, req.body.firstname, req.body.lastname);
     res.status(result.code).json(result);
   }),
 );
