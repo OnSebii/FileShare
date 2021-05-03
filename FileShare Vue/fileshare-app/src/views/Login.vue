@@ -1,51 +1,57 @@
 <template>
-  <div
-    id="screen"
-    class="d-flex flex-column justify-content-center align-items-center"
-  >
-    <form class="d-flex flex-column align-items-center p-4 bg-dark rounded">
+  <div id="screen" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column align-items-center p-4 bg-dark rounded" style="width: 300px">
+      <!-- TODO: from habe ich zu div geändert. Wenn das Form tag drinnen bleibt wird die Seite aktuallisert und der request nicht gesendet -->
+      <!-- Ich habe auch eine Width von 300 Hinzugefügt weil sonst alles so zusammen gedrückt wäre -->
       <p class="icon mt-2 mb-1"><i class="fas fa-users"></i></p>
       <h4 class="font-weight-normal">Please sign in</h4>
 
       <label for="inputEmail" class="mt-3 w-100">Email address</label>
-      <input
-        type="email"
-        id="inputEmail"
-        class="form-control input-field"
-        placeholder="Email address"
-        required
-        autofocus
-      />
+      <input type="email" id="inputEmail" class="form-control input-field" placeholder="Email address" required autofocus v-model="email" />
 
       <label for="inputPassword" class="mt-3 w-100">Password</label>
-      <input
-        type="password"
-        id="inputPassword"
-        class="form-control input-field"
-        placeholder="Password"
-        required
-      />
+      <input type="password" id="inputPassword" class="form-control input-field" placeholder="Password" required v-model="password" />
       <div class="mt-2">
-        <button class="btn mt-3 highlighted-button mr-1" type="submit">
+        <button class="btn mt-3 highlighted-button mr-1" @click="login">
           Login
         </button>
-        <button class="btn background-button mt-3" type="submit">
+        <button class="btn background-button mt-3">
           Register
         </button>
       </div>
 
       <p class="mt-3 mb-3 text-muted">&copy; 2021 Fileshare</p>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Login',
   data() {
     return {
-      
+      email: '',
+      password: '',
     };
+  },
+  methods: {
+    async login() {
+      const data = await axios({
+        url: 'http://127.0.0.1:3000/login',
+        method: 'post',
+        contentType: 'application/json',
+        data: {
+          email: this.email,
+          password: this.password,
+        },
+      });
+      const { id, firstname, email } = data.data;
+      localStorage.setItem('id', id);
+      localStorage.setItem('firstname', firstname);
+      localStorage.setItem('email', email);
+      this.$router.push('/dashboard').catch(() => {});
+    },
   },
 };
 </script>

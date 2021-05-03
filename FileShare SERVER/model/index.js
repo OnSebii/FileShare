@@ -7,26 +7,21 @@ const { hashPassword, comparePassword } = require('./bcFunctions');
 //////////////////////////////////////////////////////////////// CHECK/REGISTER
 async function checkUser(email, password) {
   const { rows } = await db.query('SELECT password FROM users WHERE email = $1', [email]);
-  const result = await comparePassword(password, rows.password);
+  const result = await comparePassword(password, rows[0].password); //INFO: Davor rows.password => muss aber zu rows[0].password geändert werden.
   return result;
 }
 async function registerUser(email, password, firstname, lastname) {
   const hashedPassword = await hashPassword(password);
   const { rows } = await db.query('INSERT INTO users(email, password, firstname, lastname) VALUES ($1, $2, $3, $4) RETURNING email', [email, hashedPassword, firstname, lastname]);
   return {
-    data: rows.email,
+    data: rows[0].email,
     status: 200,
   };
 }
 
-checkUser('lang.s03@htlwienwest.at', 'hash').then(function (result) {
-  console.log('1');
-  console.log(result);
-});
-
 //////////////////////////////////////////////////////////////// USER DATA
 async function getUserData(email) {
-  const { rows } = await db.query('SELECT id, name, path, synonym_path, upload_date, admin FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1', [
+  const { rows } = await db.query('SELECT id, name, path, synonym_path, upload_date, admin, firstname FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1', [
     email,
   ]);
   return {

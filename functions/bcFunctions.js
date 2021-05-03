@@ -9,7 +9,7 @@ async function comparePassword(pw, hashedPw) {
   return await bcrypt.compare(pw, hashedPw);
 }
 
-hashPassword('1234').then(function (res) {
+hashPassword('1').then(function (res) {
   console.log(res);
   comparePassword('123', res).then(function (res2) {
     console.log(res2);

@@ -19,6 +19,11 @@ const {
 } = require('../model');
 
 // TODO Wait until express sessions are implemented: Check user/password combination for user/file actions
+//////////////////////////////////////////////////////////////// redirect user if he isnt logged in
+const redirectLogin = (req, res, next) => {
+  if (!req.session.userId) res.status(400).send('You are not logged in!');
+  else next();
+};
 
 //////////////////////////////////////////////////////////////// LOGIN/REGISTER
 router.post(
@@ -30,19 +35,31 @@ router.post(
     const correct = await checkUser(email, password);
     if (correct) {
       const result = await getUserData(email);
-
-      res.status(result.status).json(result);
-      // TODO: Set loggedIn on true / get parameters
-      // Create cookie with email, bool
+      if (result.data[0].id) {
+        console.log(result.data[0].id);
+        console.log(req.session);
+        req.session.userId = result.data[0].id;
+        res.status(result.status).json({ id: result.data[0].id, firstname: result.data[0].firstname, email: email });
+      }
     } else res.status(500).json(false);
   }),
 );
+
 router.post(
   // Required: email, password, firstname, lastname
   '/register',
   asyncHandler(async (req, res) => {
     const result = await registerUser(req.body.email, req.body.password, req.body.firstname, req.body.lastname);
     res.status(result.code).json(result);
+  }),
+);
+
+router.get(
+  '/logout',
+  asyncHandler(async (req, res) => {
+    req.session.destroy();
+    res.clearCookie(process.env.SESSION_NAME);
+    res.status(200).send('');
   }),
 );
 
@@ -90,6 +107,7 @@ router.delete(
 router.post(
   // Required: email, name, file
   '/upload',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     // TODO if loggedIn
     const result = await addUserFile(email, name);

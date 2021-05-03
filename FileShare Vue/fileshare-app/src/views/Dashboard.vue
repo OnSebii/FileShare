@@ -3,36 +3,21 @@
     <div class="container my-4">
       <!-- NAVBAR -->
       <nav class="navbar navbar-expand navbar-dark bg-dark py-2 rounded">
-        <a class="navbar-brand ml-2 custom-brand font-weight-bold"
-          >FileShare <span>Dashboard</span></a
-        >
+        <a class="navbar-brand ml-2 custom-brand font-weight-bold">FileShare <span>Dashboard</span></a>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav ml-auto">
-            <li
-              class="nav-item"
-              data-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <a class="nav-link active"
-                ><i class="fas fa-user-circle custom-profile"></i
-              ></a>
-              <div
-                class="dropdown-menu dropdown-menu-right custom-dropdown px-3"
-              >
+            <li class="nav-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link active"><i class="fas fa-user-circle custom-profile"></i></a>
+              <div class="dropdown-menu dropdown-menu-right custom-dropdown px-3">
                 <p class="my-2">
                   <span class="font-weight-bold text-white">Email:</span>
-                  {{ 'email' }}
+                  {{ user.email }}
                 </p>
                 <p class="mb-2">
                   <span class="font-weight-bold text-white">Name:</span>
-                  {{ `${'first'} ${'last'}` }}
+                  {{ user.firstname }}
                 </p>
-                <p
-                  class="dropdown-item custom-dropdown-item p-0 mt-1 mb-3 text-white"
-                  @click="activeMenu = 'settings'"
-                >
+                <p class="dropdown-item custom-dropdown-item p-0 mt-1 mb-3 text-white" @click="activeMenu = 'settings'">
                   Edit Account
                 </p>
                 <div class="dropdown-divider"></div>
@@ -50,42 +35,20 @@
           <div class="row">
             <div class="form-group col-6 pr-2">
               <label for="inputFirst">First name</label>
-              <input
-                type="password"
-                class="form-control custom-input"
-                id="inputFirst"
-                placeholder="First name"
-              />
+              <input type="password" class="form-control custom-input" id="inputFirst" placeholder="First name" />
             </div>
             <div class="form-group col-6 pl-2">
               <label for="inputLast">Last name</label>
-              <input
-                type="password"
-                class="form-control custom-input"
-                id="inputLast"
-                placeholder="Last name"
-              />
+              <input type="password" class="form-control custom-input" id="inputLast" placeholder="Last name" />
             </div>
             <div class="form-group col-6 pr-2">
               <label for="inputEmail">Email address</label>
-              <input
-                type="email"
-                class="form-control custom-input"
-                id="inputEmail"
-                placeholder="Email address"
-              />
-              <small class="form-text text-muted"
-                >You have to confirm a new address.</small
-              >
+              <input type="email" class="form-control custom-input" id="inputEmail" placeholder="Email address" />
+              <small class="form-text text-muted">You have to confirm a new address.</small>
             </div>
             <div class="form-group col-6 pl-2">
               <label for="inputPassword">Password</label>
-              <input
-                type="password"
-                class="form-control custom-input"
-                id="inputPassword"
-                placeholder="Password"
-              />
+              <input type="password" class="form-control custom-input" id="inputPassword" placeholder="Password" />
             </div>
           </div>
           <button class="btn custom-front-button mb-1 mr-2">Save</button>
@@ -100,36 +63,19 @@
         <div class="p-4">
           <div class="d-flex justify-content-between align-items-center">
             <p class="custom-headline">Shared Files</p>
-            <a
-              class="mb-3 custom-plus"
-              type="button"
-              data-toggle="modal"
-              data-target="#addModal"
-            >
+            <a class="mb-3 custom-plus" type="button" data-toggle="modal" data-target="#addModal">
               <i class="fas fa-plus"></i>
             </a>
           </div>
 
           <!-- Inserted FILE Cards -->
           <div class="card border-secondary mb-3">
-            <div
-              class="card-header d-flex justify-content-between align-items-center px-3 py-2"
-            >
+            <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">Filename</p>
               <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-sm mr-2 custom-front-button">
-                  Copy URL <i class="fas fa-copy ml-1"></i>
-                </button>
-                <button
-                  class="btn btn-sm mr-2 custom-background-button"
-                  data-toggle="modal"
-                  data-target="#shareModal"
-                >
-                  Share <i class="fas fa-share ml-1"></i>
-                </button>
-                <a type="button" data-toggle="modal" data-target="#deleteModal">
-                  <i class="fas fa-trash-alt ml-1"></i
-                ></a>
+                <button class="btn btn-sm mr-2 custom-front-button">Copy URL <i class="fas fa-copy ml-1"></i></button>
+                <button class="btn btn-sm mr-2 custom-background-button" data-toggle="modal" data-target="#shareModal">Share <i class="fas fa-share ml-1"></i></button>
+                <a type="button" data-toggle="modal" data-target="#deleteModal"> <i class="fas fa-trash-alt ml-1"></i></a>
               </div>
             </div>
             <div class="card-body px-3 py-2">
@@ -160,45 +106,23 @@
             <h5 class="modal-title">
               File Upload
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <label for="inputName">Name</label>
-            <input
-              type="text"
-              id="inputName"
-              class="form-control custom-input mb-3"
-              placeholder="..."
-              required
-              autofocus
-            />
+            <input type="text" id="inputName" class="form-control custom-input mb-3" placeholder="..." required autofocus />
 
             <label class="d-block">Select File</label>
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                id="inputGroupFile02"
-              />
-              <label class="custom-file-label custom-input" for="inputGroupFile02"
-                >Please select a file.</label
-              >
+              <input type="file" class="custom-file-input" id="inputGroupFile02" />
+              <label class="custom-file-label custom-input" for="inputGroupFile02">Please select a file.</label>
             </div>
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-front-button"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn custom-front-button" data-dismiss="modal">
               Upload
             </button>
           </div>
@@ -212,33 +136,18 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Delete File "<span class="font-weight-bold text-green">{{
-                'file_name'
-              }}</span
+              Delete File "<span class="font-weight-bold text-green">{{ 'file_name' }}</span
               >"?
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>
-              Data will be deleted automatically on {{ 'delete_date' }}. When
-              deleting a file before this date, there is no chance to restore it
-              again.
-            </p>
+            <p>Data will be deleted automatically on {{ 'delete_date' }}. When deleting a file before this date, there is no chance to restore it again.</p>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-front-button"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn custom-front-button" data-dismiss="modal">
               Delete
             </button>
           </div>
@@ -254,31 +163,17 @@
             <h5 class="modal-title">
               Share To
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <label for="inputEmail">Email address</label>
-            <input
-              type="text"
-              id="inputEmail"
-              class="form-control custom-input mb-3"
-              placeholder="Email"
-              required
-              autofocus
-            />
+            <input type="text" id="inputEmail" class="form-control custom-input mb-3" placeholder="Email" required autofocus />
 
             <ul class="list-group mb-1">
               <!-- Inserted USER Cards -->
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center py-2 px-3"
-              >
+              <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
                 email-name@domain
                 <span><i class="fas fa-trash-alt ml-1"></i></span>
               </li>
@@ -286,11 +181,7 @@
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-front-button"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn custom-front-button" data-dismiss="modal">
               Save
             </button>
           </div>
@@ -304,7 +195,12 @@
 export default {
   name: 'Login',
   data() {
-    return { activeMenu: 'main' };
+    return { activeMenu: 'main', user: { id: 0, firstname: '', email: '' } };
+  },
+  created() {
+    if (localStorage.getItem('id') != null) this.user.id = localStorage.getItem('id');
+    if (localStorage.getItem('firstname') != null) this.user.firstname = localStorage.getItem('firstname');
+    if (localStorage.getItem('email') != null) this.user.email = localStorage.getItem('email');
   },
 };
 </script>

@@ -202,6 +202,9 @@ export default {
       }
     },
   },
+  created() {
+    console.log(localStorage.getItem('id'));
+  },
 };
 </script>
 

@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Help from '../views/Help.vue';
 import Dashboard from '../views/Dashboard.vue';
+import Logout from '../views/Logout.vue';
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ const routes = [
     component: Register,
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout,
+  },
+  {
     path: '/help',
     name: 'Help',
     component: Help,
@@ -33,6 +39,10 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    beforeEnter: (to, from, next) => {
+      if (!isAuthenticated()) next({ name: 'Login' });
+      next();
+    },
   },
 ];
 
@@ -41,5 +51,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+function isAuthenticated() {
+  console.log(Vue.$cookies.get('sid'));
+  if (Vue.$cookies.get('sid')) return true;
+  else return false;
+}
 
 export default router;
