@@ -76,7 +76,7 @@ export default {
         localStorage.setItem('firstname', firstname);
         localStorage.setItem('lastname', lastname);
         localStorage.setItem('email', email);
-        this.$router.push('/dashboard');
+        this.$router.push({ name: 'Dashboard' });
       } catch (error) {
         console.log(error);
       }
