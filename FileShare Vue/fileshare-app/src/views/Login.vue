@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     async login() {
-      const data = await axios({
+      const result = await axios({
         url: '/login',
         method: 'post',
         contentType: 'application/json',
@@ -68,12 +68,12 @@ export default {
           password: this.password,
         },
       });
-      const { id, firstname, lastname, email } = data.data;
+      const { id, firstname, lastname, email } = result.data;
       localStorage.setItem('id', id);
       localStorage.setItem('firstname', firstname);
       localStorage.setItem('lastname', lastname);
       localStorage.setItem('email', email);
-      // this.$router.push('/dashboard');
+      this.$router.push('/dashboard');
     },
   },
 };

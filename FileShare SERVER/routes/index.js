@@ -36,13 +36,12 @@ router.post(
     if (correct) {
       const result = await getUserData(email);
       if (result.data[0].id) {
-        console.log(result.data[0].id);
-        console.log(req.session);
         req.session.userId = result.data[0].id;
         res.status(result.status).json({
-          id: result.data[0].id,
-          firstname: result.data[0].firstname,
-          email: email,
+          id: result.data.id,
+          firstname: result.data.firstname,
+          firstname: result.data.lastname,
+          email,
         });
       }
     } else res.status(500).json(false);
