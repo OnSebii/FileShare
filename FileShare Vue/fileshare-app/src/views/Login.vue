@@ -61,7 +61,7 @@ export default {
     async login() {
       try {
         const result = await axios({
-          url: 'http://localhost:3000/login',
+          url: '/login',
           method: 'post',
           contentType: 'application/json',
           data: {
