@@ -1,21 +1,42 @@
 <template>
-  <div id="screen" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="d-flex flex-column align-items-center p-4 bg-dark rounded" style="width: 300px">
+  <div
+    id="screen"
+    class="d-flex flex-column justify-content-center align-items-center"
+  >
+    <div
+      class="d-flex flex-column align-items-center p-4 bg-dark rounded"
+      style="width: 300px"
+    >
       <!-- TODO: from habe ich zu div geändert. Wenn das Form tag drinnen bleibt wird die Seite aktuallisert und der request nicht gesendet -->
       <!-- Ich habe auch eine Width von 300 Hinzugefügt weil sonst alles so zusammen gedrückt wäre -->
       <p class="icon mt-2 mb-1"><i class="fas fa-users"></i></p>
       <h4 class="font-weight-normal">Please sign in</h4>
 
       <label for="inputEmail" class="mt-3 w-100">Email address</label>
-      <input type="email" id="inputEmail" class="form-control input-field" placeholder="Email address" required autofocus v-model="email" />
+      <input
+        type="email"
+        id="inputEmail"
+        class="form-control input-field"
+        placeholder="Email address"
+        required
+        autofocus
+        v-model="email"
+      />
 
       <label for="inputPassword" class="mt-3 w-100">Password</label>
-      <input type="password" id="inputPassword" class="form-control input-field" placeholder="Password" required v-model="password" />
+      <input
+        type="password"
+        id="inputPassword"
+        class="form-control input-field"
+        placeholder="Password"
+        required
+        v-model="password"
+      />
       <div class="mt-2">
         <button class="btn mt-3 highlighted-button mr-1" @click="login">
           Login
         </button>
-        <button class="btn background-button mt-3">
+        <button class="btn background-button mt-3" to="/register">
           Register
         </button>
       </div>
@@ -27,6 +48,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   name: 'Login',
   data() {
@@ -38,7 +60,7 @@ export default {
   methods: {
     async login() {
       const data = await axios({
-        url: 'http://127.0.0.1:3000/login',
+        url: '/login',
         method: 'post',
         contentType: 'application/json',
         data: {
@@ -46,11 +68,12 @@ export default {
           password: this.password,
         },
       });
-      const { id, firstname, email } = data.data;
+      const { id, firstname, lastname, email } = data.data;
       localStorage.setItem('id', id);
       localStorage.setItem('firstname', firstname);
+      localStorage.setItem('lastname', lastname);
       localStorage.setItem('email', email);
-      this.$router.push('/dashboard').catch(() => {});
+      // this.$router.push('/dashboard');
     },
   },
 };

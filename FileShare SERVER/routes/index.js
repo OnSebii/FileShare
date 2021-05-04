@@ -27,7 +27,7 @@ const redirectLogin = (req, res, next) => {
 
 //////////////////////////////////////////////////////////////// LOGIN/REGISTER
 router.post(
-  // Required: email, password
+  // Required: email, password -- FERTIG
   '/login',
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -39,7 +39,11 @@ router.post(
         console.log(result.data[0].id);
         console.log(req.session);
         req.session.userId = result.data[0].id;
-        res.status(result.status).json({ id: result.data[0].id, firstname: result.data[0].firstname, email: email });
+        res.status(result.status).json({
+          id: result.data[0].id,
+          firstname: result.data[0].firstname,
+          email: email,
+        });
       }
     } else res.status(500).json(false);
   }),
@@ -49,7 +53,12 @@ router.post(
   // Required: email, password, firstname, lastname
   '/register',
   asyncHandler(async (req, res) => {
-    const result = await registerUser(req.body.email, req.body.password, req.body.firstname, req.body.lastname);
+    const result = await registerUser(
+      req.body.email,
+      req.body.password,
+      req.body.firstname,
+      req.body.lastname,
+    );
     res.status(result.code).json(result);
   }),
 );
@@ -75,29 +84,29 @@ router.post(
 );
 
 //////////////////////////////////////////////////////////////// USER DATA
-router.post(
-  // Required: email, firstname, lastname
+router.put(
+  // Required: email, firstname, lastname -- FERTIG
   '/user-email',
   asyncHandler(async (req, res) => {
-    // TODO if loggedIn
+    const { email, firstname, lastname } = req.body;
     const result = await updateUserName(email, firstname, lastname);
     res.status(result.code).json(result);
   }),
 );
-router.post(
-  // Required: email, new_password
+router.put(
+  // Required: email, new_password -- FERTIG
   '/user-password',
   asyncHandler(async (req, res) => {
-    // TODO if loggedIn
+    const { email, new_password } = req.body;
     const result = await updateUserPassword(email, new_password);
     res.status(result.code).json(result);
   }),
 );
 router.delete(
-  // Required: email
+  // Required: email -- FERTIG
   '/user',
   asyncHandler(async (req, res) => {
-    // TODO if loggedIn
+    let { email } = req.body;
     const result = await deleteUser(email);
     res.status(result.code).json(result);
   }),
