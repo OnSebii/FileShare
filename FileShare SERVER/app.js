@@ -39,7 +39,6 @@ app.use(
     cookie: {
       maxAge: SESSION_LIFETIME * 1000 * 60 * 60,
       httpOnly: false,
-      sameSite: true,
       secure: NODE_ENV === 'production',
     },
   }),
