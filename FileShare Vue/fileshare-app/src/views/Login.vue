@@ -44,6 +44,7 @@
       </div>
 
       <p class="mt-3 mb-3 text-muted">&copy; 2021 Fileshare</p>
+      <p v-if="message" class="mb-3 text-danger">An error occurred</p>
     </div>
   </div>
 </template>
@@ -57,6 +58,7 @@ export default {
     return {
       email: 'lang.s03@htlwienwest.at',
       password: '1',
+      message: false,
     };
   },
   methods: {
@@ -79,6 +81,7 @@ export default {
         this.$router.push({ name: 'Dashboard' });
       } catch (error) {
         console.log(error);
+        this.message = true;
       }
     },
   },

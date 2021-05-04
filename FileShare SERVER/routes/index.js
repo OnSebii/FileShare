@@ -48,7 +48,7 @@ router.post(
 );
 
 router.post(
-  // Required: email, password, firstname, lastname 
+  // Required: email, password, firstname, lastname
   '/register',
   asyncHandler(async (req, res) => {
     const result = await registerUser(
@@ -97,7 +97,7 @@ router.put(
   asyncHandler(async (req, res) => {
     const { email, firstname, lastname } = req.body;
     const result = await updateUserName(email, firstname, lastname);
-    res.status(result.code).json(result);
+    res.status(result.status).json(result);
   }),
 );
 router.put(
@@ -106,7 +106,7 @@ router.put(
   asyncHandler(async (req, res) => {
     const { email, new_password } = req.body;
     const result = await updateUserPassword(email, new_password);
-    res.status(result.code).json(result);
+    res.status(result.status).json(result);
   }),
 );
 router.delete(

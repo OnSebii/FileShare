@@ -47,9 +47,9 @@ async function updateUserName(email, firstname, lastname) {
 }
 async function updateUserPassword(email, password) {
   const hashedPassword = await hashPassword(password);
-  const { rows } = await db.query('UPDATE users SET password = $1 WHERE email = $2', [hashedPassword, email]);
+  await db.query('UPDATE users SET password = $1 WHERE email = $2', [hashedPassword, email]);
   return {
-    data: rows.email,
+    data: true,
     status: 200,
   };
 }

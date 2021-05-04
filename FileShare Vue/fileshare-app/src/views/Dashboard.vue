@@ -48,7 +48,9 @@
       <!-- My Account -->
       <div v-if="activeMenu == 'settings'" class="mt-3 bg-dark rounded">
         <form class="p-4">
-          <legend class="mb-3 custom-headline">My Account</legend>
+          <legend class="mb-3 custom-headline">
+            My Account: {{ updateUser.email }}
+          </legend>
           <div class="row">
             <div class="form-group col-12 col-sm-6 px-3">
               <label for="inputFirst">First name</label>
@@ -81,14 +83,21 @@
               />
             </div>
           </div>
-          <button class="btn custom-front-button mb-1 mr-2" @click="userChange">
+          <button
+            class="btn custom-front-button mb-1 mr-2"
+            type="button"
+            @click="userChange"
+          >
             Save
           </button>
-          <button class="btn mb-1" @click="activeMenu = 'main'">
+          <button class="btn mb-1" type="button" @click="activeMenu = 'main'">
             Discard changes
           </button>
-          <br>
-          <button class="btn custom-background-button mt-2 mb-1" @click="deleteUser">
+          <br />
+          <button
+            class="btn custom-background-button mt-3 mb-1"
+            @click="deleteUser"
+          >
             Delete User
           </button>
         </form>
@@ -336,21 +345,18 @@ export default {
   methods: {
     async userChange() {
       try {
-        console.log({
-          email: this.user.email,
-          firstname: this.updateUser.firstname,
-          lastname: this.updateUser.lastname,
-        });
         let data = await axios({
-          url: '/user-email',
+          url: 'http://127.0.0.1:3000/user-email',
           method: 'put',
           contentType: 'application/json',
           data: {
-            email: this.email,
+            email: this.updateUser.email,
             firstname: this.updateUser.firstname,
             lastname: this.updateUser.lastname,
           },
         });
+        localStorage.setItem('firstname', this.updateUser.firstname);
+        localStorage.setItem('lastname', this.updateUser.lastname);
         console.log(data);
         if (this.updateUser.password != '') {
           data = await axios({
@@ -358,12 +364,13 @@ export default {
             method: 'put',
             contentType: 'application/json',
             data: {
-              email: this.email,
+              email: this.user.email,
               new_password: this.updateUser.password,
             },
           });
           console.log(data);
         }
+        this.activeMenu = 'main';
       } catch (error) {
         console.log(error);
       }
@@ -419,7 +426,7 @@ export default {
         this.user.email = localStorage.getItem('email');
 
       this.updateUser = this.user;
-      this.password = '';
+      this.updateUser.password = '';
 
       const { data } = await axios({
         url: '/user',
