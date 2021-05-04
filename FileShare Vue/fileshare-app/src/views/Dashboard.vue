@@ -36,7 +36,9 @@
                   Edit Account
                 </p>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item p-0 mb-1 " to="/logout">Logout</a>
+                <a class="dropdown-item p-0 mb-1 "
+                  ><router-link to="/logout">Logout</router-link></a
+                >
               </div>
             </li>
           </ul>
@@ -48,39 +50,27 @@
         <form class="p-4">
           <legend class="mb-3 custom-headline">My Account</legend>
           <div class="row">
-            <div class="form-group col-6 pr-2">
+            <div class="form-group col-12 col-sm-6 px-3">
               <label for="inputFirst">First name</label>
               <input
-                type="password"
+                type="text"
                 class="form-control custom-input"
                 id="inputFirst"
                 placeholder="First name"
                 v-model="updateUser.firstname"
               />
             </div>
-            <div class="form-group col-6 pl-2">
+            <div class="form-group col-12 col-sm-6 px-3">
               <label for="inputLast">Last name</label>
               <input
-                type="password"
+                type="text"
                 class="form-control custom-input"
                 id="inputLast"
                 placeholder="Last name"
                 v-model="updateUser.lastname"
               />
             </div>
-            <div class="form-group col-6 pr-2">
-              <label for="inputEmail">Email address</label>
-              <input
-                type="email"
-                class="form-control custom-input"
-                id="inputEmail"
-                placeholder="Email address"
-              />
-              <small class="form-text text-muted"
-                >You have to confirm a new address.</small
-              >
-            </div>
-            <div class="form-group col-6 pl-2">
+            <div class="form-group col-12 col-sm-6 px-3 pb-2">
               <label for="inputPassword">Password</label>
               <input
                 type="password"
@@ -91,14 +81,15 @@
               />
             </div>
           </div>
-          <button class="btn custom-front-button mb-1 mr-4" @click="deleteUser">
-            Delete User
-          </button>
           <button class="btn custom-front-button mb-1 mr-2" @click="userChange">
             Save
           </button>
           <button class="btn mb-1" @click="activeMenu = 'main'">
             Discard changes
+          </button>
+          <br>
+          <button class="btn custom-background-button mt-2 mb-1" @click="deleteUser">
+            Delete User
           </button>
         </form>
       </div>
@@ -119,13 +110,20 @@
           </div>
 
           <!-- Inserted FILE Cards -->
-          <div class="card border-secondary mb-3">
+          <div
+            class="card border-secondary mb-3"
+            v-for="file of files"
+            :key="file.id"
+          >
             <div
               class="card-header d-flex justify-content-between align-items-center px-3 py-2"
             >
-              <p class="m-0 custom-title">Filename</p>
+              <p class="m-0 custom-title">{{ file.name }}</p>
               <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-sm mr-2 custom-front-button">
+                <button
+                  class="btn btn-sm mr-2 custom-front-button"
+                  @click="copyURL"
+                >
                   Copy URL <i class="fas fa-copy ml-1"></i>
                 </button>
                 <button
@@ -142,15 +140,27 @@
             </div>
             <div class="card-body px-3 py-2">
               <div class="d-flex justify-content-between my-1 custom-text">
-                <span>{{ 'upload_date' }}</span
-                ><span>{{ 'delete_date' }}</span>
+                <span>{{ formatDateTime(file.upload_date) }}</span
+                ><span>{{
+                  formatDateTime(
+                    new Date(file.upload_date).setDate(
+                      new Date(file.upload_date).getDate() + 7,
+                    ),
+                  )
+                }}</span>
               </div>
               <div class="progress mb-2 custom-progress">
                 <div
                   class="progress-bar"
                   role="progressbar"
                   :style="{
-                    width: 50 + '%',
+                    width:
+                      progress(
+                        new Date(file.upload_date),
+                        new Date(file.upload_date).setDate(
+                          new Date(file.upload_date).getDate() + 7,
+                        ),
+                      ) + '%',
                   }"
                 ></div>
               </div>
@@ -318,14 +328,19 @@ export default {
   data() {
     return {
       activeMenu: 'main',
-      user: { id: 0, firstname: '', lastname: '', email: '' },
-      updateUser: { firstname: '', lastname: '', password: '' },
+      user: { firstname: '', lastname: '', email: '' },
+      updateUser: null,
       files: [],
     };
   },
   methods: {
     async userChange() {
       try {
+        console.log({
+          email: this.user.email,
+          firstname: this.updateUser.firstname,
+          lastname: this.updateUser.lastname,
+        });
         let data = await axios({
           url: '/user-email',
           method: 'put',
@@ -353,6 +368,28 @@ export default {
         console.log(error);
       }
     },
+    format(value) {
+      if (value < 10) return '0' + value;
+      return value;
+    },
+    formatDateTime(time) {
+      let datetime = new Date(time);
+      return `${this.format(datetime.getDate())}.${this.format(
+        datetime.getMonth() + 1,
+      )}.${datetime.getFullYear()} ${this.format(
+        datetime.getHours(),
+      )}:${this.format(datetime.getMinutes())}`;
+    },
+    progress(start, ende) {
+      if (start.getTime() > new Date().getTime()) return 0;
+      else if (new Date(ende).getTime() < new Date().getTime()) return 100;
+      else {
+        let margin = new Date(ende).getTime() - start.getTime();
+        let temp = new Date().getTime() - start.getTime();
+        return (temp / margin) * 100;
+      }
+    },
+    copyURL() {},
     async deleteUser() {
       try {
         if (confirm('Are you sure to delete this account?')) {
@@ -373,25 +410,29 @@ export default {
     },
   },
   async created() {
-    if (localStorage.getItem('firstname') != null)
-      this.user.firstname = localStorage.getItem('firstname');
-    if (localStorage.getItem('lastname') != null)
-      this.user.lastname = localStorage.getItem('lastname');
-    if (localStorage.getItem('email') != null)
-      this.user.email = localStorage.getItem('email');
+    try {
+      if (localStorage.getItem('firstname') != null)
+        this.user.firstname = localStorage.getItem('firstname');
+      if (localStorage.getItem('lastname') != null)
+        this.user.lastname = localStorage.getItem('lastname');
+      if (localStorage.getItem('email') != null)
+        this.user.email = localStorage.getItem('email');
 
-    // try {
-    //   this.files = await axios({
-    //     url: '/user',
-    //     method: 'post',
-    //     contentType: 'application/json',
-    //     data: {
-    //       email: this.email,
-    //     },
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      this.updateUser = this.user;
+      this.password = '';
+
+      const { data } = await axios({
+        url: '/user',
+        method: 'post',
+        contentType: 'application/json',
+        data: {
+          email: this.user.email,
+        },
+      });
+      this.files = data.data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>
