@@ -51,7 +51,12 @@ router.post(
   // Required: email, password, firstname, lastname
   '/register',
   asyncHandler(async (req, res) => {
-    const result = await registerUser(req.body.email, req.body.password, req.body.firstname, req.body.lastname);
+    const result = await registerUser(
+      req.body.email,
+      req.body.password,
+      req.body.firstname,
+      req.body.lastname,
+    );
     res.status(result.code).json(result);
   }),
 );

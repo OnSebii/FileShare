@@ -91,14 +91,14 @@
               />
             </div>
           </div>
+          <button class="btn custom-front-button mb-1 mr-4" @click="deleteUser">
+            Delete User
+          </button>
           <button class="btn custom-front-button mb-1 mr-2" @click="userChange">
             Save
           </button>
           <button class="btn mb-1" @click="activeMenu = 'main'">
             Discard changes
-          </button>
-          <button class="btn btn-danger mb-1 ml-4" @click="deleteUser">
-            Delete User
           </button>
         </form>
       </div>

@@ -19,7 +19,7 @@
         <button class="btn mt-3 highlighted-button mr-1" type="submit">
           Register
         </button>
-        <button class="btn background-button mt-3" type="button" to="/login">Login</button>
+        <router-link to="/login"><button class="btn background-button mt-3" type="button" >Login</button></router-link>
       </div>
 
       <p class="mt-3 mb-3 text-muted">&copy; 2021 Fileshare</p>

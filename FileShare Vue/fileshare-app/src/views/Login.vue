@@ -36,9 +36,11 @@
         <button class="btn mt-3 highlighted-button mr-1" @click="login">
           Login
         </button>
-        <button class="btn background-button mt-3" to="/register">
-          Register
-        </button>
+        <router-link to="/register"
+          ><button class="btn background-button mt-3" to="/register">
+            Register
+          </button>
+        </router-link>
       </div>
 
       <p class="mt-3 mb-3 text-muted">&copy; 2021 Fileshare</p>
