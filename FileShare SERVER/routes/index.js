@@ -5,7 +5,8 @@ const {
   // RETURNING DATA
   checkUser, // (email, password) -> bool [Page: Login]
   registerUser, // (email, password, firstname, lastname) -> email for login page [Page: Register]
-  getUserData, // (email) -> obj(id, name, path, synonym_path, upload_date, admin) [Page: Dashboard]
+  getUserData, // (email) -> obj(email, id, firstname, lastname) [Page: Login]
+  getUserFiles, // (email) -> obj(id, name, path, synonym_path, upload_date, admin) [Page: Dashboard]
   updateUserName, // (email, firstname, lastname) -> obj(firstname, lastname) [Page: Account]
   updateUserPassword, // (email, password) -> email [Page: Account]
   deleteUser, // (email) -> email [Page: Account]
@@ -31,16 +32,14 @@ router.post(
   '/login',
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
     const correct = await checkUser(email, password);
     if (correct) {
       const result = await getUserData(email);
-      if (result.data[0].id) {
-        req.session.userId = result.data[0].id;
+      if (result.data[0].email) {
+        req.session.userId = result.data[0].email;
         res.status(result.status).json({
-          id: result.data.id,
-          firstname: result.data.firstname,
-          firstname: result.data.lastname,
+          firstname: result.data[0].firstname,
+          lastname: result.data[0].lastname,
           email,
         });
       }
@@ -83,6 +82,15 @@ router.post(
 );
 
 //////////////////////////////////////////////////////////////// USER DATA
+router.post(
+  // Required: email, password -- FERTIG
+  '/user',
+  asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const result = await getUserFiles(email);
+    res.status(200).send(result);
+  }),
+);
 router.put(
   // Required: email, firstname, lastname -- FERTIG
   '/user-email',

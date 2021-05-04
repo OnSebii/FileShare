@@ -29,12 +29,13 @@ async function registerUser(email, password, firstname, lastname) {
 
 //////////////////////////////////////////////////////////////// USER DATA
 async function getUserData(email) {
-  const user = await db.query(
-    'SELECT id, firstname, lastname FROM users WHERE email = $1',
-    [email],
-  );
+  const {
+    rows,
+  } = await db.query('SELECT email, firstname, lastname FROM users WHERE email = $1', [
+    email,
+  ]);
   return {
-    data: user,
+    data: rows,
     status: 200,
   };
 }
@@ -233,6 +234,7 @@ module.exports = {
   checkUser,
   registerUser,
   getUserData,
+  getUserFiles,
   updateUserName,
   updateUserPassword,
   deleteUser,

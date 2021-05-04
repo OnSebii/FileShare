@@ -27,7 +27,7 @@
                 </p>
                 <p class="mb-2">
                   <span class="font-weight-bold text-white">Name:</span>
-                  {{ user.firstname }}
+                  {{ user.firstname }} {{ user.lastname }}
                 </p>
                 <p
                   class="dropdown-item custom-dropdown-item p-0 mt-1 mb-3 text-white"
@@ -318,8 +318,9 @@ export default {
   data() {
     return {
       activeMenu: 'main',
-      user: { id: 0, firstname: '', email: '' },
+      user: { id: 0, firstname: '', lastname: '', email: '' },
       updateUser: { firstname: '', lastname: '', password: '' },
+      files: [],
     };
   },
   methods: {
@@ -371,15 +372,26 @@ export default {
       }
     },
   },
-  created() {
-    if (localStorage.getItem('id') != null)
-      this.user.id = localStorage.getItem('id');
+  async created() {
     if (localStorage.getItem('firstname') != null)
       this.user.firstname = localStorage.getItem('firstname');
     if (localStorage.getItem('lastname') != null)
-      this.user.firstname = localStorage.getItem('lastname');
+      this.user.lastname = localStorage.getItem('lastname');
     if (localStorage.getItem('email') != null)
       this.user.email = localStorage.getItem('email');
+
+    // try {
+    //   this.files = await axios({
+    //     url: '/user',
+    //     method: 'post',
+    //     contentType: 'application/json',
+    //     data: {
+    //       email: this.email,
+    //     },
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   },
 };
 </script>
