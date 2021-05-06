@@ -21,13 +21,16 @@
     <div class="container">
       <div class="text-center landing-title-body">
         <h1 class="glitch">File Share</h1>
-        <!-- TODO: Subtext hinzufügen. -->
-        <h5>Subtext</h5>
-        <div class="custom-file w-25">
-          <input type="file" name="upload" ref="upload" class="custom-file-input" id="inputGroupFile02" v-bind="file" @change="onFileChange" />
-          <label class="custom-file-label custom-input text-left" for="inputGroupFile02">{{ fileName }}</label>
+        <h5>
+          Upload your file anonym
+        </h5>
+        <div class="row mx-auto w-50">
+          <div class="custom-file col">
+            <input type="file" name="upload" ref="upload" class="custom-file-input" id="inputGroupFile02" v-bind="file" @change="onFileChange" />
+            <label class="custom-file-label custom-input text-left" for="inputGroupFile02">{{ fileName }}</label>
+          </div>
+          <button class="btn btn-primary col-sm-3" @click="uploadFile">Upload</button>
         </div>
-        <button class="btn btn-primary" @click="uploadFile">Upload</button>
       </div>
       <div class="text-center">
         <a class="" id="subtitle"></a>
@@ -37,7 +40,7 @@
       <h3 class="text-center">About</h3>
       <!-- FAQ_ -->
       <div>
-        <p><strong>How is (File Share) Unique?</strong></p>
+        <p><strong>How is File Share Unique?</strong></p>
         <!-- TODO: Frage beantworten -->
         <a>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
@@ -120,7 +123,7 @@
       <div>
         <div class="row">
           <div class="col-6">
-            <h4>Lorem Ipsum is simply dummy text of the printing</h4>
+            <h4>Share your files anonym</h4>
             <a>
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
               unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
@@ -177,7 +180,7 @@ export default {
   data() {
     return {
       file: '',
-      fileName: 'Please select a file.',
+      fileName: 'no file selected',
     };
   },
   methods: {
