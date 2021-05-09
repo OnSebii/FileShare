@@ -2,7 +2,7 @@
   <div>
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-      <a class="navbar-brand" href="#">Domain.name</a>
+      <a class="navbar-brand" href="#">File Share</a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -31,6 +31,11 @@
           </div>
           <button class="btn btn-primary col-sm-3" @click="uploadFile">Upload</button>
         </div>
+        <div v-if="uploadedFile" class="my-2">
+          <span>Your File: </span>
+          <a ref="fileLink" :href="uploadedFile">{{ uploadedFile }}</a>
+          <button class="btn btn-primary mx-2" @click="copyURL">Copy</button>
+        </div>
       </div>
       <div class="text-center">
         <a class="" id="subtitle"></a>
@@ -42,12 +47,12 @@
       <div>
         <p><strong>How is File Share Unique?</strong></p>
         <!-- TODO: Frage beantworten -->
-        <a>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-          accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </a>
+        <span>
+          There are currently no other services online where you can upload and share your files for free. With File Share you don’t have to create a user account to upload and
+          share your files. Either you use the anonymous function on our main page, or you can
+          <a href="/register" class="linkColor">create</a>
+          an account. Our system deletes all anonymous uploaded files after 7 days for your security.
+        </span>
       </div>
 
       <hr />
@@ -109,7 +114,7 @@
               <span class="card-text">
                 <!-- TODO: Github Link mit eigener Domain ersetzen. -->
                 Our whole project is open source. You can find the source code on
-                <a href="https://github.com/OnSebii/FileShare" target="_blank" style="color: #2db194 !important">GitHub</a>
+                <a href="https://github.com/OnSebii/FileShare" target="_blank" class="linkColor">GitHub</a>
                 .
               </span>
             </div>
@@ -124,12 +129,12 @@
         <div class="row">
           <div class="col-6">
             <h4>Share your files anonym</h4>
-            <a>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-              unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-              with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </a>
+            <span>
+              You can upload your files anonymously on our
+              <a @click="scrollToTop" class="linkColor">homepage</a>
+              (this page). The uploaded anonymous files will be automatically deleted after 7 days from our system. After you have uploaded your file you will get a url back that you can share
+              with your friends. Anyone who has this url can see the uploaded content.
+            </span>
           </div>
           <div class="col-6 mb-5">
             <img src="../assets/img/300.png" class="rounded mx-auto d-block" alt="Placeholder image" />
@@ -139,7 +144,7 @@
             <img src="../assets/img/300.png" class="rounded mx-auto d-block" alt="Placeholder image" />
           </div>
           <div class="col-6">
-            <h4>Lorem Ipsum is simply dummy text of the printing</h4>
+            <h4>Login and share your files</h4>
             <a>
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
               unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
@@ -181,6 +186,7 @@ export default {
     return {
       file: '',
       fileName: 'no file selected',
+      uploadedFile: '',
     };
   },
   methods: {
@@ -194,15 +200,33 @@ export default {
 
       try {
         const { data } = await axios({
-          url: 'http://127.0.0.1:3000/upload-anon',
+          url: '/upload-anon',
           method: 'post',
           contentType: 'multipart/form-data',
           data: formData,
         });
-        console.log(data);
+        this.uploadedFile = `${window.location.host}/${data}`;
       } catch (error) {
         console.error(error);
       }
+    },
+    copyURL() {
+      let range;
+      if (document.selection) {
+        range = document.body.createTextRange();
+        range.moveToElementText(this.$refs.fileLink);
+        range.select();
+        document.execCommand('copy');
+      } else if (window.getSelection) {
+        range = document.createRange();
+        range.selectNode(this.$refs.fileLink);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+      }
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
   created() {
@@ -270,5 +294,9 @@ span {
 
 .custom-file-label {
   background-color: #444444;
+}
+
+.linkColor {
+  color: #2db194 !important;
 }
 </style>

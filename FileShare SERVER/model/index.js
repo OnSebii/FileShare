@@ -149,7 +149,8 @@ async function uploadFile(user, file) {
   // Called at addUserFile()
   const dir = path.join(__dirname, '../upload', user);
   const cstmID = shortid.generate();
-  const uploadedFile = path.join(__dirname, `../upload/anon/${cstmID}.${file.name.split('.')[1]}`);
+  const filename = `${cstmID}.${file.name.split('.')[1]}`;
+  const uploadedFile = path.join(__dirname, `../upload/anon`, filename);
   try {
     if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
     fs.writeFileSync(uploadedFile, file.data);
@@ -158,7 +159,7 @@ async function uploadFile(user, file) {
   }
 
   return {
-    data: cstmID,
+    data: filename,
     status: 200,
   };
 }
