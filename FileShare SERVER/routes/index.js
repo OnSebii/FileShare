@@ -19,7 +19,6 @@ const {
   // deleteFile (user, path) -> bool [Page: Dashboard] - called regularly via cron job
 } = require('../model');
 
-// TODO Wait until express sessions are implemented: Check user/password combination for user/file actions
 //////////////////////////////////////////////////////////////// redirect user if he isnt logged in
 const redirectLogin = (req, res, next) => {
   if (!req.session.userId) res.status(400).send('You are not logged in!');
