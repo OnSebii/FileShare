@@ -139,6 +139,7 @@
                   class="btn btn-sm mr-2 custom-background-button"
                   data-toggle="modal"
                   data-target="#shareModal"
+                  @click="openShareModal(file)"
                 >
                   Share <i class="fas fa-share ml-1"></i>
                 </button>
@@ -276,7 +277,13 @@
     </div>
 
     <!-- FILE SHARE Modal -->
-    <div class="modal fade" id="shareModal" role="dialog" aria-hidden="true">
+    <div
+      v-if="selectedFile"
+      class="modal fade"
+      id="shareModal"
+      role="dialog"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -301,6 +308,7 @@
               placeholder="Email"
               required
               autofocus
+              v-model="shareToField"
             />
 
             <ul class="list-group mb-1">
@@ -319,6 +327,7 @@
               type="button"
               class="btn custom-front-button"
               data-dismiss="modal"
+              @click="addUser"
             >
               Save
             </button>
@@ -340,9 +349,23 @@ export default {
       user: { firstname: '', lastname: '', email: '' },
       updateUser: null,
       files: [],
+      selectedFile: null,
+      shareToField: '',
+      fileUsers: [],
     };
   },
   methods: {
+    async getData() {
+      const { data } = await axios({
+        url: '/user',
+        method: 'post',
+        contentType: 'application/json',
+        data: {
+          email: this.user.email,
+        },
+      });
+      this.files = data.data;
+    },
     async userChange() {
       try {
         let data = await axios({
@@ -397,18 +420,54 @@ export default {
       }
     },
     copyURL() {},
+    async openShareModal(file) {
+      try {
+        if (confirm('Are you sure to delete this account?')) {
+          this.selectedFile = file;
+          this.fileUsers = await axios({
+            url: '/get-file-owner',
+            method: 'post',
+            contentType: 'application/json',
+            data: {
+              email: this.user.email,
+              id: this.selectedFile.id,
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addUser() {
+      try {
+        await axios({
+          url: '/add-user',
+          method: 'post',
+          contentType: 'application/json',
+          data: {
+            email: this.user.email,
+            id: this.selectedFile.id,
+            new_email: this.shareToField,
+          },
+        });
+
+        await this.getData();
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async deleteUser() {
       try {
         if (confirm('Are you sure to delete this account?')) {
-          let data = await axios({
+          await axios({
             url: '/user',
             method: 'delete',
             contentType: 'application/json',
             data: {
-              email: this.email,
+              email: this.user.email,
             },
           });
-          console.log(data);
+          // HELP Logout?
           this.$router.push('/');
         }
       } catch (error) {
@@ -428,15 +487,7 @@ export default {
       this.updateUser = this.user;
       this.updateUser.password = '';
 
-      const { data } = await axios({
-        url: '/user',
-        method: 'post',
-        contentType: 'application/json',
-        data: {
-          email: this.user.email,
-        },
-      });
-      this.files = data.data;
+      await this.getData();
     } catch (error) {
       console.log(error);
     }

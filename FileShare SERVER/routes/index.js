@@ -16,6 +16,7 @@ const {
   updateUserFile, // (email, id, name) -> id / false if not permitted [Page: Dashboard]
   deleteUserFile, // (email, id) -> id / false if not permitted [Page: Dashboard]
   uploadFile, // (user, file) -> cstmID [Page: Home/Dashboard]
+  getFileOwners,
   // deleteFile (user, path) -> bool [Page: Dashboard] - called regularly via cron job
 } = require('../model');
 
@@ -112,7 +113,7 @@ router.delete(
   // Required: email -- FERTIG
   '/user',
   asyncHandler(async (req, res) => {
-    let { email } = req.body;
+    let email = req.body.email;
     const result = await deleteUser(email);
     res.status(result.code).json(result);
   }),
@@ -135,15 +136,24 @@ router.post(
   // Required: email, data_id, new_email
   '/add-user',
   asyncHandler(async (req, res) => {
-    // TODO if loggedIn
-    const result = await addUserFileConnection(email, data_id, new_email);
+    let { email, id, new_email } = req.body;
+    const result = await addUserFileConnection(email, id, new_email);
+    res.status(result.code).json(result);
+  }),
+);
+router.post(
+  // Required: email, data_id, new_email
+  '/get-file-owner',
+  asyncHandler(async (req, res) => {
+    let { email, id } = req.body;
+    const result = await getFileOwner(email, id);
+    res.status(result.code).json(result);
   }),
 );
 router.post(
   // Required: email, id
   '/add-synonym',
   asyncHandler(async (req, res) => {
-    // TODO if loggedIn
     const result = await setSynonymFilePath(email, id);
   }),
 );
