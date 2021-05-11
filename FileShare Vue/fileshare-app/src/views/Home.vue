@@ -132,12 +132,12 @@
             <span>
               You can upload your files anonymously on our
               <a @click="scrollToTop" class="linkColor">homepage</a>
-              (this page). The uploaded anonymous files will be automatically deleted after 7 days from our system. After you have uploaded your file you will get a url back that you can share
-              with your friends. Anyone who has this url can see the uploaded content.
+              (this page). The uploaded anonymous files will be automatically deleted after 7 days from our system. After you have uploaded your file you will get a url back that
+              you can share with your friends. Anyone who has this url can see the uploaded content.
             </span>
           </div>
           <div class="col-6 mb-5">
-            <img src="../assets/img/300.png" class="rounded mx-auto d-block" alt="Placeholder image" />
+            <!-- <img src="../assets/gifs/uploadAnon.gif" class="rounded mx-auto d-block" alt="Placeholder Gif" /> -->
           </div>
 
           <div class="col-6">
