@@ -169,15 +169,15 @@
 
             <label class="d-block">Select File</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02" />
+              <input type="file" class="custom-file-input" id="inputGroupFile02" @change="onFileChange"/>
               <label class="custom-file-label custom-input" for="inputGroupFile02"
-                >Please select a file.</label
+                >{{fileName}}</label
               >
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn custom-front-button" data-dismiss="modal">
+            <button type="button" class="btn custom-front-button" data-dismiss="modal" @click="uploadFile">
               Upload
             </button>
           </div>
