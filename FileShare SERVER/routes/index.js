@@ -16,7 +16,7 @@ const {
   updateUserFile, // (email, id, name) -> id / false if not permitted [Page: Dashboard]
   deleteUserFile, // (email, id) -> id / false if not permitted [Page: Dashboard]
   uploadFile, // (user, file) -> cstmID [Page: Home/Dashboard]
-  getFileOwners,
+  getFileOwner
   // deleteFile (user, path) -> bool [Page: Dashboard] - called regularly via cron job
 } = require('../model');
 
