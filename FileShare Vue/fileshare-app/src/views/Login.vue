@@ -1,12 +1,6 @@
 <template>
-  <div
-    id="screen"
-    class="d-flex flex-column justify-content-center align-items-center"
-  >
-    <div
-      class="d-flex flex-column align-items-center p-4 bg-dark rounded"
-      style="width: 300px"
-    >
+  <div id="screen" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column align-items-center p-4 bg-dark rounded" style="width: 300px">
       <!-- TODO: from habe ich zu div geändert. Wenn das Form tag drinnen bleibt wird die Seite aktuallisert und der request nicht gesendet -->
       <!-- Ich habe auch eine Width von 300 Hinzugefügt weil sonst alles so zusammen gedrückt wäre -->
       <p class="icon mt-2 mb-1"><i class="fas fa-users"></i></p>
@@ -84,6 +78,9 @@ export default {
         this.message = true;
       }
     },
+  },
+  created() {
+    if (localStorage.getItem('email')) this.email = localStorage.getItem('email');
   },
 };
 </script>

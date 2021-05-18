@@ -22,11 +22,13 @@ Content-Type: application/json
     "last_name": "Wonly"
 }
 ###
-post http://127.0.0.1:3000/login
+post http://127.0.0.1:3000/register
 Content-Type: application/json
 
 {
-    "email": "lang.s03@htlwienwest.at",
-    "password": "1"
+    "email": "lang.s03@htlwienwest.a",
+    "password": "1",
+    "firstname": "name1",
+    "lastname": "name2"
 }
 
