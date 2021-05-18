@@ -3,9 +3,7 @@
     <div class="container my-4">
       <!-- NAVBAR -->
       <nav class="navbar navbar-expand navbar-dark bg-dark py-2 rounded">
-        <a class="navbar-brand ml-2 custom-brand font-weight-bold"
-          >FileShare <span>Dashboard</span></a
-        >
+        <a class="navbar-brand ml-2 custom-brand font-weight-bold">FileShare <span>Dashboard</span></a>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav ml-auto">
             <li
@@ -15,12 +13,8 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <a class="nav-link active"
-                ><i class="fas fa-user-circle custom-profile"></i
-              ></a>
-              <div
-                class="dropdown-menu dropdown-menu-right custom-dropdown px-3"
-              >
+              <a class="nav-link active"><i class="fas fa-user-circle custom-profile"></i></a>
+              <div class="dropdown-menu dropdown-menu-right custom-dropdown px-3">
                 <p class="my-2">
                   <span class="font-weight-bold text-white">Email:</span>
                   {{ user.email }}
@@ -36,9 +30,7 @@
                   Edit Account
                 </p>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item p-0 mb-1 "
-                  ><router-link to="/logout">Logout</router-link></a
-                >
+                <a class="dropdown-item p-0 mb-1 "><router-link to="/logout">Logout</router-link></a>
               </div>
             </li>
           </ul>
@@ -48,9 +40,7 @@
       <!-- My Account -->
       <div v-if="activeMenu == 'settings'" class="mt-3 bg-dark rounded">
         <form class="p-4">
-          <legend class="mb-3 custom-headline">
-            My Account: {{ updateUser.email }}
-          </legend>
+          <legend class="mb-3 custom-headline">My Account: {{ updateUser.email }}</legend>
           <div class="row">
             <div class="form-group col-12 col-sm-6 px-3">
               <label for="inputFirst">First name</label>
@@ -83,21 +73,14 @@
               />
             </div>
           </div>
-          <button
-            class="btn custom-front-button mb-1 mr-2"
-            type="button"
-            @click="userChange"
-          >
+          <button class="btn custom-front-button mb-1 mr-2" type="button" @click="userChange">
             Save
           </button>
           <button class="btn mb-1" type="button" @click="activeMenu = 'main'">
             Discard changes
           </button>
           <br />
-          <button
-            class="btn custom-background-button mt-3 mb-1"
-            @click="deleteUser"
-          >
+          <button class="btn custom-background-button mt-3 mb-1" @click="deleteUser">
             Delete User
           </button>
         </form>
@@ -108,31 +91,17 @@
         <div class="p-4">
           <div class="d-flex justify-content-between align-items-center">
             <p class="custom-headline">Shared Files</p>
-            <a
-              class="mb-3 custom-plus"
-              type="button"
-              data-toggle="modal"
-              data-target="#addModal"
-            >
+            <a class="mb-3 custom-plus" type="button" data-toggle="modal" data-target="#addModal">
               <i class="fas fa-plus"></i>
             </a>
           </div>
 
           <!-- Inserted FILE Cards -->
-          <div
-            class="card border-secondary mb-3"
-            v-for="file of files"
-            :key="file.id"
-          >
-            <div
-              class="card-header d-flex justify-content-between align-items-center px-3 py-2"
-            >
+          <div class="card border-secondary mb-3" v-for="file of files" :key="file.id">
+            <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">{{ file.name }}</p>
               <div class="d-flex justify-content-end align-items-center">
-                <button
-                  class="btn btn-sm mr-2 custom-front-button"
-                  @click="copyURL"
-                >
+                <button class="btn btn-sm mr-2 custom-front-button" @click="copyURL">
                   Copy URL <i class="fas fa-copy ml-1"></i>
                 </button>
                 <button
@@ -152,11 +121,7 @@
               <div class="d-flex justify-content-between my-1 custom-text">
                 <span>{{ formatDateTime(file.upload_date) }}</span
                 ><span>{{
-                  formatDateTime(
-                    new Date(file.upload_date).setDate(
-                      new Date(file.upload_date).getDate() + 7,
-                    ),
-                  )
+                  formatDateTime(new Date(file.upload_date).setDate(new Date(file.upload_date).getDate() + 7))
                 }}</span>
               </div>
               <div class="progress mb-2 custom-progress">
@@ -167,9 +132,7 @@
                     width:
                       progress(
                         new Date(file.upload_date),
-                        new Date(file.upload_date).setDate(
-                          new Date(file.upload_date).getDate() + 7,
-                        ),
+                        new Date(file.upload_date).setDate(new Date(file.upload_date).getDate() + 7),
                       ) + '%',
                   }"
                 ></div>
@@ -188,12 +151,7 @@
             <h5 class="modal-title">
               File Upload
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -210,25 +168,15 @@
 
             <label class="d-block">Select File</label>
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                id="inputGroupFile02"
-              />
-              <label
-                class="custom-file-label custom-input"
-                for="inputGroupFile02"
+              <input type="file" class="custom-file-input" id="inputGroupFile02" />
+              <label class="custom-file-label custom-input" for="inputGroupFile02"
                 >Please select a file.</label
               >
             </div>
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-front-button"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn custom-front-button" data-dismiss="modal">
               Upload
             </button>
           </div>
@@ -242,33 +190,21 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Delete File "<span class="font-weight-bold text-green">{{
-                'file_name'
-              }}</span
+              Delete File "<span class="font-weight-bold text-green">{{ 'file_name' }}</span
               >"?
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <p>
-              Data will be deleted automatically on {{ 'delete_date' }}. When
-              deleting a file before this date, there is no chance to restore it
-              again.
+              Data will be deleted automatically on {{ 'delete_date' }}. When deleting a file before this
+              date, there is no chance to restore it again.
             </p>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-front-button"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn custom-front-button" data-dismiss="modal">
               Delete
             </button>
           </div>
@@ -277,25 +213,14 @@
     </div>
 
     <!-- FILE SHARE Modal -->
-    <div
-      v-if="selectedFile"
-      class="modal fade"
-      id="shareModal"
-      role="dialog"
-      aria-hidden="true"
-    >
+    <div v-if="selectedFile" class="modal fade" id="shareModal" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
               Share To
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -313,9 +238,7 @@
 
             <ul class="list-group mb-1">
               <!-- Inserted USER Cards -->
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center py-2 px-3"
-              >
+              <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
                 email-name@domain
                 <span><i class="fas fa-trash-alt ml-1"></i></span>
               </li>
@@ -323,12 +246,7 @@
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn custom-front-button"
-              data-dismiss="modal"
-              @click="addUser"
-            >
+            <button type="button" class="btn custom-front-button" data-dismiss="modal" @click="addUser">
               Save
             </button>
           </div>
@@ -406,9 +324,7 @@ export default {
       let datetime = new Date(time);
       return `${this.format(datetime.getDate())}.${this.format(
         datetime.getMonth() + 1,
-      )}.${datetime.getFullYear()} ${this.format(
-        datetime.getHours(),
-      )}:${this.format(datetime.getMinutes())}`;
+      )}.${datetime.getFullYear()} ${this.format(datetime.getHours())}:${this.format(datetime.getMinutes())}`;
     },
     progress(start, ende) {
       if (start.getTime() > new Date().getTime()) return 0;
@@ -422,18 +338,17 @@ export default {
     copyURL() {},
     async openShareModal(file) {
       try {
-        if (confirm('Are you sure to delete this account?')) {
-          this.selectedFile = file;
-          this.fileUsers = await axios({
-            url: '/get-file-owner',
-            method: 'post',
-            contentType: 'application/json',
-            data: {
-              email: this.user.email,
-              id: this.selectedFile.id,
-            },
-          });
-        }
+        this.selectedFile = file;
+        const { data } = await axios({
+          url: '/get-file-owner',
+          method: 'post',
+          contentType: 'application/json',
+          data: {
+            email: this.user.email,
+            id: this.selectedFile.id,
+          },
+        });
+        this.fileUsers = data;
       } catch (error) {
         console.log(error);
       }
@@ -477,12 +392,9 @@ export default {
   },
   async created() {
     try {
-      if (localStorage.getItem('firstname') != null)
-        this.user.firstname = localStorage.getItem('firstname');
-      if (localStorage.getItem('lastname') != null)
-        this.user.lastname = localStorage.getItem('lastname');
-      if (localStorage.getItem('email') != null)
-        this.user.email = localStorage.getItem('email');
+      if (localStorage.getItem('firstname') != null) this.user.firstname = localStorage.getItem('firstname');
+      if (localStorage.getItem('lastname') != null) this.user.lastname = localStorage.getItem('lastname');
+      if (localStorage.getItem('email') != null) this.user.email = localStorage.getItem('email');
 
       this.updateUser = this.user;
       this.updateUser.password = '';
