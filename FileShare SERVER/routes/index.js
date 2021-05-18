@@ -16,7 +16,7 @@ const {
   updateUserFile, // (email, id, name) -> id / false if not permitted [Page: Dashboard]
   deleteUserFile, // (email, id) -> id / false if not permitted [Page: Dashboard]
   uploadFile, // (user, file) -> cstmID [Page: Home/Dashboard]
-  getFileOwners,
+  getFileOwner
   // deleteFile (user, path) -> bool [Page: Dashboard] - called regularly via cron job
 } = require('../model');
 
@@ -124,11 +124,9 @@ router.post(
   // Required: email, name, file
   '/upload',
   asyncHandler(async (req, res) => {
-    // TODO if loggedIn
     const { email, name } = req.body;
-
-    const result = await uploadFile(email, req.files.upload, name);
-    // await addUserFile(email, name);
+    const result = await uploadFile(email, req.files.upload);
+    await addUserFile(email, name, result.data);
     res.status(result.status).json(result.data);
   }),
 );

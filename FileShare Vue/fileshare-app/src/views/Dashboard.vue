@@ -169,10 +169,8 @@
 
             <label class="d-block">Select File</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02" @change="onFileChange"/>
-              <label class="custom-file-label custom-input" for="inputGroupFile02"
-                >{{fileName}}</label
-              >
+              <input type="file" class="custom-file-input" id="inputGroupFile02" @change="onFileChange" />
+              <label class="custom-file-label custom-input" for="inputGroupFile02">{{ fileName }}</label>
             </div>
           </div>
 
@@ -219,7 +217,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Share To <span class="text-green">{{ selectedFile.name }}</span>
+              Share To <span class="text-green font-weight-bold">{{ selectedFile.name }}</span>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -239,8 +237,12 @@
 
             <ul class="list-group mb-1">
               <!-- Inserted USER Cards -->
-              <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
-                email-name@domain
+              <li
+                v-for="user of fileUsers"
+                :key="user"
+                class="list-group-item d-flex justify-content-between align-items-center py-2 px-3"
+              >
+                {{ user }}
                 <span><i class="fas fa-trash-alt ml-1"></i></span>
               </li>
             </ul>
@@ -375,6 +377,7 @@ export default {
           },
         });
         this.fileUsers = data;
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
