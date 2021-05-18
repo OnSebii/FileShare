@@ -80,7 +80,10 @@ export default {
     },
   },
   created() {
-    if (localStorage.getItem('email')) this.email = localStorage.getItem('email');
+    if (localStorage.getItem('email')) {
+      this.email = localStorage.getItem('email');
+      localStorage.clear();
+    }
   },
 };
 </script>
