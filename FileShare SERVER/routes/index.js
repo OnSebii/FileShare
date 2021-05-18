@@ -123,13 +123,13 @@ router.delete(
 router.post(
   // Required: email, name, file
   '/upload',
-  redirectLogin,
   asyncHandler(async (req, res) => {
     // TODO if loggedIn
-    const result = await addUserFile(email, name);
-    // Call uploadFile() to save it
-    // Check if filename already exists in uploadFile()
-    res.status(result.code).json(result);
+    const { email, name } = req.body;
+
+    const result = await uploadFile(email, req.files.upload, name);
+    // await addUserFile(email, name);
+    res.status(result.status).json(result.data);
   }),
 );
 router.post(
