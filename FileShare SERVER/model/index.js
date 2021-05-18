@@ -6,18 +6,13 @@ const { hashPassword, comparePassword } = require('./bcFunctions');
 
 //////////////////////////////////////////////////////////////// CHECK/REGISTER
 async function checkUser(email, password) {
-  const { rows } = await db.query(
-    'SELECT password FROM users WHERE email = $1',
-    [email],
-  );
+  const { rows } = await db.query('SELECT password FROM users WHERE email = $1', [email]);
   const result = await comparePassword(password, rows[0].password); //INFO: Davor rows.password => muss aber zu rows[0].password geändert werden.
   return result;
 }
 async function registerUser(email, password, firstname, lastname) {
   const hashedPassword = await hashPassword(password);
-  const {
-    rows,
-  } = await db.query(
+  const { rows } = await db.query(
     'INSERT INTO users(email, password, firstname, lastname) VALUES ($1, $2, $3, $4) RETURNING email',
     [email, hashedPassword, firstname, lastname],
   );
@@ -29,21 +24,14 @@ async function registerUser(email, password, firstname, lastname) {
 
 //////////////////////////////////////////////////////////////// USER DATA
 async function getUserData(email) {
-  const {
-    rows,
-  } = await db.query(
-    'SELECT email, firstname, lastname FROM users WHERE email = $1',
-    [email],
-  );
+  const { rows } = await db.query('SELECT email, firstname, lastname FROM users WHERE email = $1', [email]);
   return {
     data: rows,
     status: 200,
   };
 }
 async function getUserFiles(email) {
-  const {
-    rows,
-  } = await db.query(
+  const { rows } = await db.query(
     'SELECT id, name, path, synonym_path, upload_date, admin FROM users JOIN user_data USING (email) JOIN files ON id = data_id WHERE email = $1 ORDER BY admin',
     [email],
   );
@@ -53,9 +41,7 @@ async function getUserFiles(email) {
   };
 }
 async function updateUserName(email, firstname, lastname) {
-  const {
-    rows,
-  } = await db.query(
+  const { rows } = await db.query(
     'UPDATE users SET firstname = $1, lastname = $2 WHERE email = $3 RETURNING firstname, lastname',
     [firstname, lastname, email],
   );
@@ -66,10 +52,7 @@ async function updateUserName(email, firstname, lastname) {
 }
 async function updateUserPassword(email, password) {
   const hashedPassword = await hashPassword(password);
-  await db.query('UPDATE users SET password = $1 WHERE email = $2', [
-    hashedPassword,
-    email,
-  ]);
+  await db.query('UPDATE users SET password = $1 WHERE email = $2', [hashedPassword, email]);
   return {
     data: true,
     status: 200,
@@ -83,11 +66,7 @@ async function deleteUserFiles(email) {
 }
 async function deleteUser(email) {
   await deleteUserFiles(email);
-  const {
-    rows,
-  } = await db.query('DELETE FROM users WHERE email = $1 RETURNING email', [
-    email,
-  ]);
+  const { rows } = await db.query('DELETE FROM users WHERE email = $1 RETURNING email', [email]);
   return {
     data: rows.email,
     status: 200,
@@ -96,40 +75,30 @@ async function deleteUser(email) {
 
 //////////////////////////////////////////////////////////////// USER FILES
 async function checkFileOwner(email, data_id) {
-  const {
-    rows,
-  } = await db.query(
-    'SELECT 1 FROM user_data WHERE email = $1, data_id = $2, admin = true',
-    [email, data_id],
-  );
+  const { rows } = await db.query('SELECT 1 FROM user_data WHERE email = $1, data_id = $2, admin = true', [
+    email,
+    data_id,
+  ]);
   return rows.length > 0;
 }
 
-async function addUserFile(email, name) {
-  // TODO
-  // Set variable "path" to file location
-  // Add file to directory (table column "synonym_path" stays empty)
-  const {
-    rows,
-  } = await db.query(
+async function addUserFile(email, name, path) {
+  const { rows } = await db.query(
     'INSERT INTO files(name, path, upload_date) VALUES ($1, $2, now()) RETURNING id',
     [name, path],
   );
-  await db.query(
-    'INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, true)',
-    [email, rows.id],
-  );
+  console.log(rows[0]);
+  if (email != 'no-email')
+    await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, true)', [email, rows[0].id]);
   return {
-    data: rows.id,
+    data: rows[0].id,
     status: 200,
   };
 }
 async function addUserFileConnection(email, data_id, new_email) {
   const permission = await checkFileOwner(email, data_id);
   if (permission) {
-    const {
-      rows,
-    } = await db.query(
+    const { rows } = await db.query(
       'INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, false) RETURNING email, data_id',
       [new_email, data_id],
     );
@@ -142,12 +111,7 @@ async function addUserFileConnection(email, data_id, new_email) {
 async function getFileOwner(email, id) {
   const permission = await checkFileOwner(email, id);
   if (permission) {
-    const {
-      rows,
-    } = await db.query(
-      'SELECT email FROM user_data WHERE data_id = $1',
-      [id],
-    );
+    const { rows } = await db.query('SELECT email FROM user_data WHERE data_id = $1', [id]);
     return {
       data: rows,
       status: 200,
@@ -159,12 +123,9 @@ async function setSynonymFilePath(email, id) {
   if (permission) {
     // TODO
     // Create random file path for synonym_path
-    const synonym_path =
-      shortid.generate() + shortid.generate() + shortid.generate();
+    const synonym_path = shortid.generate() + shortid.generate() + shortid.generate();
     // Make file accessible from anywhere (add app.get route: synonym_path url to real path)
-    const {
-      rows,
-    } = await db.query(
+    const { rows } = await db.query(
       'UPDATE files SET synonym_path = $1 WHERE id = $2 RETURNING synonym_path',
       [synonym_path, id],
     );
@@ -182,12 +143,7 @@ async function setSynonymFilePath(email, id) {
 async function updateUserFile(email, id, name) {
   const permission = await checkFileOwner(email, id);
   if (permission) {
-    const {
-      rows,
-    } = await db.query(
-      'UPDATE files SET name = $1 WHERE id = $2 RETURNING id',
-      [name, id],
-    );
+    const { rows } = await db.query('UPDATE files SET name = $1 WHERE id = $2 RETURNING id', [name, id]);
     return {
       data: rows.id,
       status: 200,
@@ -204,9 +160,7 @@ async function deleteUserFile(email, id) {
   // Disable app.get route
   const permission = await checkFileOwner(email, id);
   if (permission) {
-    const {
-      rows,
-    } = await db.query('DELETE FROM files WHERE id = $1 RETURNING id', [id]);
+    const { rows } = await db.query('DELETE FROM files WHERE id = $1 RETURNING id', [id]);
     return {
       data: rows.id,
       status: 200,

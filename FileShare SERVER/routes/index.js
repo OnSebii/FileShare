@@ -76,7 +76,7 @@ router.post(
   '/upload-anon',
   asyncHandler(async (req, res) => {
     const result = await uploadFile('anon', req.files.upload);
-    // await addUserFile(email, name); TODO
+    await addUserFile('no-email', 'anon', result.data);
     res.status(result.status).json(result.data);
   }),
 );
