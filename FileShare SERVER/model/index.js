@@ -172,14 +172,14 @@ async function deleteUserFile(email, id) {
   };
 }
 
-async function uploadFile(user, file) {
+async function uploadFile(user, file, name) {
   // TODO Upload User File
   // User-based directories with files, not accessible from outside
   // Called at addUserFile()
   const dir = path.join(__dirname, '../upload', user);
   const cstmID = shortid.generate();
   const filename = `${cstmID}.${file.name.split('.')[1]}`;
-  const uploadedFile = path.join(__dirname, `../upload/anon`, filename);
+  const uploadedFile = path.join(__dirname, `../upload/`, user, filename);
   try {
     if (fs.existsSync(dir) == false) fs.mkdirSync(dir);
     fs.writeFileSync(uploadedFile, file.data);

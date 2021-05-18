@@ -206,6 +206,7 @@
               placeholder="..."
               required
               autofocus
+              v-model="cstmFileName"
             />
 
             <label class="d-block">Select File</label>
@@ -214,11 +215,12 @@
                 type="file"
                 class="custom-file-input"
                 id="inputGroupFile02"
+                @change="onFileChange"
               />
               <label
                 class="custom-file-label custom-input"
                 for="inputGroupFile02"
-                >Please select a file.</label
+                >{{fileName}}</label
               >
             </div>
           </div>
@@ -228,6 +230,7 @@
               type="button"
               class="btn custom-front-button"
               data-dismiss="modal"
+              @click="uploadFile"
             >
               Upload
             </button>
@@ -352,9 +355,34 @@ export default {
       selectedFile: null,
       shareToField: '',
       fileUsers: [],
+      cstmFileName: "",
+      file: '',
+      fileName: 'no file selected',
+      uploadedFile: '',
     };
   },
   methods: {
+    onFileChange(e) {
+      this.file = e.target.files[0];
+      this.fileName = this.file.name;
+    },
+    async uploadFile() {
+      let formData = new FormData();
+      formData.append('upload', this.file);
+      formData.append('email', this.user.email);
+
+      try {
+        const { data } = await axios({
+          url: '/upload',
+          method: 'post',
+          contentType: 'multipart/form-data',
+          data: formData,
+        });
+        this.uploadedFile = `${window.location.host}/${data}`;
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async getData() {
       const { data } = await axios({
         url: '/user',
