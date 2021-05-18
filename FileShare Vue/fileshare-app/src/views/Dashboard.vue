@@ -219,7 +219,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Share To
+              Share To <span class="text-green">{{ selectedFile.name }}</span>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -271,7 +271,7 @@ export default {
       selectedFile: null,
       shareToField: '',
       fileUsers: [],
-      cstmFileName: "",
+      cstmFileName: '',
       file: '',
       fileName: 'no file selected',
       uploadedFile: '',
