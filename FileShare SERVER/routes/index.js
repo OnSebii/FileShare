@@ -57,7 +57,7 @@ router.post(
       req.body.firstname,
       req.body.lastname,
     );
-    res.status(result.code).json(result);
+    res.status(result.status).json(result);
   }),
 );
 
