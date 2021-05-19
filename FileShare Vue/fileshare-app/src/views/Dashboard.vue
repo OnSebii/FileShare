@@ -239,10 +239,10 @@
               <!-- Inserted USER Cards -->
               <li
                 v-for="user of fileUsers"
-                :key="user"
+                :key="user.email"
                 class="list-group-item d-flex justify-content-between align-items-center py-2 px-3"
               >
-                {{ user }}
+                {{ user.email }}
                 <span><i class="fas fa-trash-alt ml-1"></i></span>
               </li>
             </ul>
@@ -287,6 +287,7 @@ export default {
     async uploadFile() {
       let formData = new FormData();
       formData.append('upload', this.file);
+      formData.append('name', this.cstmFileName);
       formData.append('email', this.user.email);
 
       try {
@@ -297,6 +298,8 @@ export default {
           data: formData,
         });
         this.uploadedFile = `${window.location.host}/${data}`;
+
+        await this.getData();
       } catch (error) {
         console.error(error);
       }
