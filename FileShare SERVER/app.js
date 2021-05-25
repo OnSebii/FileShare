@@ -5,6 +5,7 @@ const path = require('path');
 const expressFileupload = require('express-fileupload');
 const cors = require('cors');
 let session = require('express-session');
+const { deleteAnon } = require('./model/deleteFile');
 
 require('dotenv').config();
 
@@ -13,7 +14,7 @@ require('colors');
 // Auto delete
 const time = 1000 * 3600 * 24 * 7;
 setInterval(function () {
-  
+  deleteAnon();
 }, time);
 
 const app = express();
