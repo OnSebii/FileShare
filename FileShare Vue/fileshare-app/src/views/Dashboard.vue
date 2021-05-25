@@ -203,7 +203,7 @@
             </p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn custom-front-button" data-dismiss="modal">
+            <button type="button" class="btn custom-front-button" data-dismiss="modal" @click="deleteFile()">
               Delete
             </button>
           </div>
@@ -303,6 +303,23 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    async deleteFile(e) {
+      console.log(e);
+      // try {
+      //   const { data } = await axios({
+      //     url: '/file',
+      //     method: 'delete',
+      //     contentType: 'application/json',
+      //     data: {
+      //       email: this.user.email,
+      //       id: 1
+      //     },
+      //   });
+      //   console.log("File wurde gelöscht. Data: ", data)
+      // } catch (error) {
+      //   console.error(error);
+      // }
     },
     async getData() {
       const { data } = await axios({
