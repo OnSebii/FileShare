@@ -168,6 +168,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const { email, id } = req.body;
     const result = await deleteUserFile(email, id);
+    res.status(result.status).json(result.data);
   }),
 );
 

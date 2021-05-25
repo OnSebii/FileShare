@@ -11,3 +11,5 @@ function deleteFile(filePath, name) {
 // Example deleteFile('anon', 'test.png');
 
 // Route delete/file aufrufen
+
+module.exports = { deleteFile };

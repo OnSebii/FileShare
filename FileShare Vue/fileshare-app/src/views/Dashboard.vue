@@ -155,7 +155,6 @@
           </div>
           <div class="d-flex justify-content-start align-items-center">
             <p class="custom-headline">Shared Files</p>
-            
           </div>
 
           <!-- Inserted SHARED FILE Cards -->
@@ -359,23 +358,6 @@ export default {
         console.error(error);
       }
     },
-    async deleteFile(e) {
-      console.log(e);
-      // try {
-      //   const { data } = await axios({
-      //     url: '/file',
-      //     method: 'delete',
-      //     contentType: 'application/json',
-      //     data: {
-      //       email: this.user.email,
-      //       id: 1
-      //     },
-      //   });
-      //   console.log("File wurde gelöscht. Data: ", data)
-      // } catch (error) {
-      //   console.error(error);
-      // }
-    },
     async getData() {
       const { data } = await axios({
         url: '/user',
@@ -476,11 +458,24 @@ export default {
       }
     },
     async openDeleteModal(file) {
+      this.selectedFile = file;
+    },
+    async deleteFile() {
       try {
-        this.selectedFile = file;
-        // ...
+        await axios({
+          url: '/file',
+          method: 'delete',
+          contentType: 'application/json',
+          data: {
+            email: this.user.email,
+            id: this.selectedFile.id,
+          },
+        });
+
+        console.log('File wurde gelöscht.');
+        await this.getData();
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     async deleteUser() {

@@ -10,11 +10,11 @@ require('dotenv').config();
 
 require('colors');
 
-// Time interval delete files after a week
-// const time = 1000 * 3600 * 24 * 7;
-// setInterval(function () {
-//   console.log('1');
-// }, time);
+// Auto delete
+const time = 1000 * 3600 * 24 * 7;
+setInterval(function () {
+  
+}, time);
 
 const app = express();
 const routes = require('./routes');
