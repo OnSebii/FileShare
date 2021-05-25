@@ -153,11 +153,9 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-start align-items-center">
             <p class="custom-headline">Shared Files</p>
-            <a class="mb-3 custom-plus" type="button" data-toggle="modal" data-target="#addModal">
-              <i class="fas fa-plus"></i>
-            </a>
+            
           </div>
 
           <!-- Inserted SHARED FILE Cards -->
@@ -169,8 +167,8 @@
             <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">{{ file.name }}</p>
               <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-sm mr-2 custom-front-button" @click="copyURL">
-                  Copy URL <i class="fas fa-copy ml-1"></i>
+                <button class="btn btn-sm custom-front-button" @click="copyURL">
+                  Download <i class="fas fa-copy ml-1"></i>
                 </button>
               </div>
             </div>
