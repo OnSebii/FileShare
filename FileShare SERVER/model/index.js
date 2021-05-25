@@ -60,7 +60,7 @@ async function updateUserPassword(email, password) {
 }
 async function deleteUserFiles(email) {
   await db.query(
-    'DELETE FROM files WHERE id IN (SELECT id FROM files JOIN user_data ON id = data_id JOIN users u USING (email) WHERE email = $1)',
+    'DELETE FROM files WHERE id IN (SELECT id FROM files JOIN user_data ON id = data_id JOIN users USING (email) WHERE email = $1 AND admin = true)',
     [email],
   );
 }
@@ -68,17 +68,17 @@ async function deleteUser(email) {
   await deleteUserFiles(email);
   const { rows } = await db.query('DELETE FROM users WHERE email = $1 RETURNING email', [email]);
   return {
-    data: rows.email,
+    data: rows[0].email,
     status: 200,
   };
 }
 
 //////////////////////////////////////////////////////////////// USER FILES
 async function checkFileOwner(email, data_id) {
-  const { rows } = await db.query('SELECT 1 FROM user_data WHERE email = $1 AND data_id = $2 AND admin = true', [
-    email,
-    data_id,
-  ]);
+  const { rows } = await db.query(
+    'SELECT 1 FROM user_data WHERE email = $1 AND data_id = $2 AND admin = true',
+    [email, data_id],
+  );
   return rows.length > 0;
 }
 

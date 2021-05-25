@@ -115,7 +115,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     let email = req.body.email;
     const result = await deleteUser(email);
-    res.status(result.code).json(result);
+    res.status(result.status).json(result);
   }),
 );
 
