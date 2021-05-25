@@ -161,7 +161,7 @@ async function deleteUserFile(email, id) {
   if (permission) {
     const { rows } = await db.query('DELETE FROM files WHERE id = $1 RETURNING id', [id]);
     // Delete real file from user folder
-    // fs.unlinkSync(path.join(__dirname, '../upload/', email, name));
+    // fs.unlinkSync(path.join(__dirname, '../upload/', email, "my38vhEsT.jpeg"));
 
     return {
       data: rows.id,
