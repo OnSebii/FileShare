@@ -11,7 +11,7 @@
           </li>
         </ul>
         <span class="nav-item">
-          <router-link class="nav-link" to="/login">Login</router-link>
+          <router-link class="nav-link btn custom-front-button" to="/login">Login</router-link>
         </span>
       </div>
     </nav>
@@ -29,7 +29,7 @@
             <input type="file" name="upload" ref="upload" class="custom-file-input" id="inputGroupFile02" v-bind="file" @change="onFileChange" />
             <label class="custom-file-label custom-input text-left" for="inputGroupFile02">{{ fileName }}</label>
           </div>
-          <button class="btn btn-primary col-sm-3" @click="uploadFile">Upload</button>
+          <button class="btn custom-front-button col-sm-3" @click="uploadFile">Upload</button>
         </div>
         <div v-if="uploadedFile" class="my-2">
           <span>Your File: </span>
@@ -137,7 +137,7 @@
             </span>
           </div>
           <div class="col-6 mb-5">
-            <!-- <img src="../assets/gifs/uploadAnon.gif" class="rounded mx-auto d-block" alt="Placeholder Gif" /> -->
+            <img src="/gif/UploadAnon.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
           </div>
 
           <div class="col-6">
@@ -298,5 +298,21 @@ span {
 
 .linkColor {
   color: #2db194 !important;
+}
+.gifEL {
+  height: 500px;
+}
+
+.custom-front-button {
+  background-color: #268a74;
+  color: white !important;
+  padding: 5px 10px !important;
+}
+.custom-front-button:hover {
+  background-color: #217563;
+}
+.custom-text {
+  font-size: 0.9em;
+  color: #bbbbbb;
 }
 </style>
