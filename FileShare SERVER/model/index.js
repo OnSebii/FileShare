@@ -156,11 +156,13 @@ async function updateUserFile(email, id, name) {
 }
 async function deleteUserFile(email, id) {
   // TODO
-  // Delete real file from user folder
   // Disable app.get route
   const permission = await checkFileOwner(email, id);
   if (permission) {
     const { rows } = await db.query('DELETE FROM files WHERE id = $1 RETURNING id', [id]);
+    // Delete real file from user folder
+    // fs.unlinkSync(path.join(__dirname, '../upload/', email, name));
+
     return {
       data: rows.id,
       status: 200,
