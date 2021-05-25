@@ -8,8 +8,13 @@ function deleteFile(filePath, name) {
   fs.unlinkSync(dir);
 }
 
+function deleteAnon() {
+  const dir = path.join(__dirname, '../upload/anon/');
+  fs.unlinkSync(dir);
+}
+
 // Example deleteFile('anon', 'test.png');
 
 // Route delete/file aufrufen
 
-module.exports = { deleteFile };
+module.exports = { deleteFile, deleteAnon };
