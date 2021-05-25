@@ -71,6 +71,9 @@
                 placeholder="Password"
                 v-model="updateUser.password"
               />
+              <small id="emailHelp" class="form-text text-muted"
+                >New password should have at least 8 characters!</small
+              >
             </div>
           </div>
           <button class="btn custom-front-button mb-1 mr-2" type="button" @click="userChange">
@@ -90,31 +93,85 @@
       <div v-if="activeMenu == 'main'" class="mt-3 bg-dark rounded">
         <div class="p-4">
           <div class="d-flex justify-content-between align-items-center">
-            <p class="custom-headline">Shared Files</p>
+            <p class="custom-headline">Uploaded Files</p>
             <a class="mb-3 custom-plus" type="button" data-toggle="modal" data-target="#addModal">
               <i class="fas fa-plus"></i>
             </a>
           </div>
 
           <!-- Inserted FILE Cards -->
-          <div class="card border-secondary mb-3" v-for="file of files" :key="file.id">
+          <div
+            class="card border-secondary mb-3"
+            v-for="file of files.filter((el) => el.admin)"
+            :key="file.id"
+          >
             <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">{{ file.name }}</p>
               <div class="d-flex justify-content-end align-items-center">
                 <button class="btn btn-sm mr-2 custom-front-button" @click="copyURL">
-                  Copy URL <i class="fas fa-copy ml-1"></i>
+                  Download <i class="fas fa-copy ml-1"></i>
                 </button>
                 <button
                   class="btn btn-sm mr-2 custom-background-button"
                   data-toggle="modal"
                   data-target="#shareModal"
                   @click="openShareModal(file)"
+                  v-if="file.admin"
                 >
                   Share <i class="fas fa-share ml-1"></i>
                 </button>
-                <a type="button" data-toggle="modal" data-target="#deleteModal">
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#deleteModal"
+                  @click="openDeleteModal(file)"
+                  v-if="file.admin"
+                >
                   <i class="fas fa-trash-alt ml-1"></i
                 ></a>
+              </div>
+            </div>
+            <div class="card-body px-3 py-2">
+              <div class="d-flex justify-content-between my-1 custom-text">
+                <span>{{ formatDateTime(file.upload_date) }}</span
+                ><span>{{
+                  formatDateTime(new Date(file.upload_date).setDate(new Date(file.upload_date).getDate() + 7))
+                }}</span>
+              </div>
+              <div class="progress mb-2 custom-progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  :style="{
+                    width:
+                      progress(
+                        new Date(file.upload_date),
+                        new Date(file.upload_date).setDate(new Date(file.upload_date).getDate() + 7),
+                      ) + '%',
+                  }"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="custom-headline">Shared Files</p>
+            <a class="mb-3 custom-plus" type="button" data-toggle="modal" data-target="#addModal">
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
+
+          <!-- Inserted SHARED FILE Cards -->
+          <div
+            class="card border-secondary mb-3"
+            v-for="file of files.filter((el) => !el.admin)"
+            :key="file.id"
+          >
+            <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
+              <p class="m-0 custom-title">{{ file.name }}</p>
+              <div class="d-flex justify-content-end align-items-center">
+                <button class="btn btn-sm mr-2 custom-front-button" @click="copyURL">
+                  Copy URL <i class="fas fa-copy ml-1"></i>
+                </button>
               </div>
             </div>
             <div class="card-body px-3 py-2">
@@ -184,12 +241,12 @@
     </div>
 
     <!-- FILE DELETE Modal -->
-    <div class="modal fade" id="deleteModal" role="dialog" aria-hidden="true">
+    <div v-if="selectedFile" class="modal fade" id="deleteModal" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Delete File "<span class="font-weight-bold text-green">{{ 'file_name' }}</span
+              Delete File "<span class="font-weight-bold text-green">{{ selectedFile.name }}</span
               >"?
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -416,6 +473,14 @@ export default {
         });
 
         await this.getData();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async openDeleteModal(file) {
+      try {
+        this.selectedFile = file;
+        // ...
       } catch (error) {
         console.log(error);
       }

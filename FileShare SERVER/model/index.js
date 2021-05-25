@@ -111,7 +111,7 @@ async function addUserFileConnection(email, data_id, new_email) {
 async function getFileOwner(email, id) {
   const permission = await checkFileOwner(email, id);
   if (permission) {
-    const { rows } = await db.query('SELECT email FROM user_data WHERE data_id = $1', [id]);
+    const { rows } = await db.query('SELECT email, admin FROM user_data WHERE data_id = $1', [id]);
     return {
       data: rows,
       status: 200,

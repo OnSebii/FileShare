@@ -136,7 +136,7 @@ router.post(
   asyncHandler(async (req, res) => {
     let { email, id, new_email } = req.body;
     const result = await addUserFileConnection(email, id, new_email);
-    res.status(result.code).json(result);
+    res.status(result.status).json(result);
   }),
 );
 router.post(
@@ -163,9 +163,10 @@ router.put(
   }),
 );
 router.delete(
-  // Required: email, ids
+  // Required: email, id
   '/file',
   asyncHandler(async (req, res) => {
+    const { email, id } = req.body;
     const result = await deleteUserFile(email, id);
   }),
 );
