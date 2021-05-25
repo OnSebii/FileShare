@@ -10,7 +10,16 @@ function deleteFile(filePath, name) {
 
 function deleteAnon() {
   const dir = path.join(__dirname, '../upload/anon/');
-  fs.unlinkSync(dir);
+
+  fs.readdir(dir, (err, files) => {
+    if (err) throw err;
+
+    for (const file of files) {
+      fs.unlink(path.join(dir, file), (err) => {
+        if (err) throw err;
+      });
+    }
+  });
 }
 
 // Example deleteFile('anon', 'test.png');
