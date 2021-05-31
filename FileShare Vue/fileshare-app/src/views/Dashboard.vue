@@ -83,7 +83,7 @@
             Discard changes
           </button>
           <br />
-          <button class="btn custom-background-button mt-3 mb-1" @click="deleteUser">
+          <button class="btn btn-danger mt-3 mb-1" @click="deleteUser">
             Delete User
           </button>
         </form>
@@ -93,7 +93,7 @@
       <div v-if="activeMenu == 'main'" class="mt-3 bg-dark rounded">
         <div class="p-4">
           <div class="d-flex justify-content-between align-items-center">
-            <p class="custom-headline">Uploaded Files</p>
+            <p class="custom-headline" v-if="files.filter((el) => el.admin).length > 0">Uploaded Files</p>
             <a class="mb-3 custom-plus" type="button" data-toggle="modal" data-target="#addModal">
               <i class="fas fa-plus"></i>
             </a>
@@ -104,6 +104,12 @@
             class="card border-secondary mb-3"
             v-for="file of files.filter((el) => el.admin)"
             :key="file.id"
+            v-show="
+              progress(
+                new Date(file.upload_date),
+                new Date(file.upload_date).setDate(new Date(file.upload_date).getDate() + 7),
+              ) != 100
+            "
           >
             <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">{{ file.name }}</p>
@@ -154,7 +160,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-start align-items-center">
-            <p class="custom-headline">Shared Files</p>
+            <p class="custom-headline" v-if="files.filter((el) => !el.admin).length > 0">Shared Files</p>
           </div>
 
           <!-- Inserted SHARED FILE Cards -->
@@ -297,7 +303,10 @@
                 class="list-group-item d-flex justify-content-between align-items-center py-2 px-3"
               >
                 {{ user.email }}
-                <span><i class="fas fa-trash-alt ml-1"></i></span>
+                <span @click="deleteShare(user)" v-if="!user.admin"
+                  ><i class="fas fa-trash-alt ml-1"></i
+                ></span>
+                <span v-else>Owner</span>
               </li>
             </ul>
           </div>
@@ -473,14 +482,16 @@ export default {
         });
 
         console.log('File wurde gelöscht.');
-        await this.getData();
       } catch (error) {
         console.error(error);
       }
     },
     async deleteUser() {
       try {
-        if (confirm('Are you sure to delete this account?')) {
+        if (
+          confirm("Are you sure to delete this account? Deleted data can't get restored!") &&
+          confirm('Are you sure? Please confirm!')
+        ) {
           await axios({
             url: '/user',
             method: 'delete',
@@ -489,8 +500,38 @@ export default {
               email: this.user.email,
             },
           });
-          // HELP Logout?
+
           this.$router.push('/');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteShare(user) {
+      try {
+        if (confirm(`Are you sure to remove this account from file "${this.selectedFile.name}"?`)) {
+          await axios({
+            url: '/remove-file-owner',
+            method: 'delete',
+            contentType: 'application/json',
+            data: {
+              user_mail: this.user.email,
+              email: user.email,
+              id: this.selectedFile.id,
+            },
+          });
+
+          // Refresh again ---
+          const { data } = await axios({
+            url: '/get-file-owner',
+            method: 'post',
+            contentType: 'application/json',
+            data: {
+              email: this.user.email,
+              id: this.selectedFile.id,
+            },
+          });
+          this.fileUsers = data;
         }
       } catch (error) {
         console.log(error);
