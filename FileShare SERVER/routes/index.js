@@ -92,7 +92,6 @@ router.post(
 router.put(
   // Required: email, firstname, lastname -- FERTIG
   '/user-email',
-  redirectLogin,
   asyncHandler(async (req, res) => {
     const { email, firstname, lastname } = req.body;
     const result = await updateUserName(email, firstname, lastname);
@@ -102,7 +101,6 @@ router.put(
 router.put(
   // Required: email, new_password -- FERTIG
   '/user-password',
-  redirectLogin,
   asyncHandler(async (req, res) => {
     const { email, new_password } = req.body;
     const result = await updateUserPassword(email, new_password);
@@ -112,7 +110,6 @@ router.put(
 router.delete(
   // Required: email -- FERTIG
   '/user',
-  redirectLogin,
   asyncHandler(async (req, res) => {
     let email = req.body.email;
     const result = await deleteUser(email);
