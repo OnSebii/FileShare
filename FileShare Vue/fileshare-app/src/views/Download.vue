@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p>Example: localhost:8080/down?user=anon&file=8hti9S6V4.jpg</p>
-    <h1>Download {{ fileName }}</h1>
+    <!-- <p>Example: localhost:8080/down?user=anon&file=8hti9S6V4.jpg</p> -->
+    <h1 v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'">View {{ fileName }}</h1>
+    <h1 v-else>Download {{ fileName }}</h1>
+    
     <img v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'" :src="serverUrl" />
     <a v-else :href="'http://localhost:3000' + serverUrl"><i class="fa fa-download"></i> Download</a>
   </div>
