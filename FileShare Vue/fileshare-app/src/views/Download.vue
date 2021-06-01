@@ -1,11 +1,18 @@
 <template>
-  <div>
+  <div class="m-5">
     <!-- <p>Example: localhost:8080/down?user=anon&file=8hti9S6V4.jpg</p> -->
-    <h1 v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'">View {{ fileName }}</h1>
-    <h1 v-else>Download {{ fileName }}</h1>
-    
-    <img v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'" :src="serverUrl" />
-    <a v-else :href="'http://localhost:3000' + serverUrl"><i class="fa fa-download"></i> Download</a>
+    <h4 v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'">View {{ fileName }}</h4>
+    <h4 v-else>Download {{ fileName }}</h4>
+
+    <img
+      v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'"
+      :src="serverUrl"
+      height="100%"
+      width="80%"
+    />
+    <a v-else :href="'http://localhost:3000' + serverUrl" class="btn custom-front-button mt-2"
+      >Download <i class="fa fa-download"></i
+    ></a>
   </div>
 </template>
 
