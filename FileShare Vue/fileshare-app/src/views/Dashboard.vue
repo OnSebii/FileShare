@@ -114,7 +114,7 @@
             <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">{{ file.name }}</p>
               <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-sm mr-2 custom-front-button" @click="copyURL">
+                <button class="btn btn-sm mr-2 custom-front-button" @click="download(file.path)">
                   Download <i class="fas fa-copy ml-1"></i>
                 </button>
                 <button
@@ -172,7 +172,7 @@
             <div class="card-header d-flex justify-content-between align-items-center px-3 py-2">
               <p class="m-0 custom-title">{{ file.name }}</p>
               <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-sm custom-front-button" @click="copyURL">
+                <button class="btn btn-sm custom-front-button" @click="download(file.path)">
                   Download <i class="fas fa-copy ml-1"></i>
                 </button>
               </div>
@@ -429,7 +429,10 @@ export default {
         return (temp / margin) * 100;
       }
     },
-    copyURL() {},
+    download(path) {
+      // TODO
+      console.log(path);
+    },
     async openShareModal(file) {
       try {
         this.selectedFile = file;
