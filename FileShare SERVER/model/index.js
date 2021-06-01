@@ -58,15 +58,15 @@ async function updateUserPassword(email, password) {
     status: 200,
   };
 }
-async function deleteUserFiles(email) {
-  await db.query(
-    'DELETE FROM files WHERE id IN (SELECT id FROM files JOIN user_data ON id = data_id JOIN users USING (email) WHERE email = $1 AND admin = true)',
-    [email],
-  );
-}
+// async function deleteUserFiles(email) {
+//   await db.query(
+//     'DELETE FROM files WHERE id IN (SELECT id FROM files JOIN user_data ON id = data_id JOIN users USING (email) WHERE email = $1 AND admin = true)',
+//     [email],
+//   );
+// }
 async function deleteUser(email) {
-  await deleteUserFiles(email);
-  const { rows } = await db.query('DELETE FROM users WHERE email = $1', [email]);
+  // await deleteUserFiles(email);
+  await db.query('DELETE FROM users WHERE email = $1', [email]);
   return {
     data: 'Success',
     status: 200,
