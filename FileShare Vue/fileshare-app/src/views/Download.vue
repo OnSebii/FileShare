@@ -2,43 +2,30 @@
   <div>
     <p>Example: localhost:8080/down?user=anon&file=8hti9S6V4.jpg</p>
     <h1>Download {{ fileName }}</h1>
-    <button class="btn" :href="file"><i class="fa fa-download"></i> Download</button>
-    <!-- <img :src="file" class="rounded mx-auto d-block" alt="Image" v-if="file" />
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" /> -->
+    <img v-if="fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg'" :src="serverUrl" />
+    <a v-else :href="'http://localhost:3000' + serverUrl"><i class="fa fa-download"></i> Download</a>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: 'Home',
   data() {
     return {
       fileName: '',
+      fileExt: '',
       user: '',
-      fileNameDir: '',
-      file: '',
+      serverUrl: '',
     };
   },
 
-  methods: {
-    async getFile() {
-      try {
-        const data = await axios({
-          url: `/download?user=anon&fileName=${this.fileName}`,
-          method: 'get',
-        });
-        this.file = data;
-        console.log(this.file);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
+  methods: {},
   created() {
     this.user = this.$route.query.user;
     this.fileName = this.$route.query.file;
-    this.getFile();
+    this.fileExt = this.fileName.split('.')[1];
+    this.serverUrl = `/upload/${this.user}/${this.fileName}`;
+    console.log(this.serverUrl);
   },
 };
 </script>
