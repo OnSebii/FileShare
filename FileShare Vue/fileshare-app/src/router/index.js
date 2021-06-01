@@ -6,6 +6,7 @@ import Register from '../views/Register.vue';
 import Help from '../views/Help.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Logout from '../views/Logout.vue';
+import Download from '../views/Download.vue';
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/help',
     name: 'Help',
     component: Help,
+  },
+  {
+    path: '/down',
+    name: 'Download',
+    component: Download,
   },
   {
     path: '/dashboard',

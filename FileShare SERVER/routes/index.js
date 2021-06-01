@@ -20,6 +20,8 @@ const {
   // deleteFile (user, path) -> bool [Page: Dashboard] - called regularly via cron job
 } = require('../model');
 
+const { getFileAnon } = require('../model/getFile');
+
 //////////////////////////////////////////////////////////////// redirect user if he isnt logged in
 const redirectLogin = (req, res, next) => {
   if (!req.session.userId) res.status(400).send('You are not logged in!');
@@ -51,12 +53,7 @@ router.post(
   // Required: email, password, firstname, lastname
   '/register',
   asyncHandler(async (req, res) => {
-    const result = await registerUser(
-      req.body.email,
-      req.body.password,
-      req.body.firstname,
-      req.body.lastname,
-    );
+    const result = await registerUser(req.body.email, req.body.password, req.body.firstname, req.body.lastname);
     res.status(result.status).json(result);
   }),
 );
@@ -183,6 +180,32 @@ router.get(
   '/registered/:syn_path',
   asyncHandler(async (req, res) => {
     // Syn_path -> return path (random)
+  }),
+);
+
+// Get Images back
+router.get(
+  '/download?',
+  asyncHandler(async (req, res) => {
+    const { user, fileName } = req.query;
+
+    if (user == 'anon') {
+      // const file = getFileAnon(fileName);
+      // fs.readFile(path.join(__dirname, '../upload/anon/', fileName), 'utf8', function (err, data) {
+      //   if (err) throw err;
+
+      //   var resultArray = data;
+
+      // });
+      const url = getFileAnon(fileName);
+      console.log(url);
+      res.status(200).sendFile(url);
+
+      // res.status(200).download(file);
+      // res.status(200).json({data: file});
+    } else {
+      res.status(404).send('File not found.');
+    }
   }),
 );
 
