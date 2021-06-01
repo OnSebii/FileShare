@@ -92,6 +92,7 @@ router.post(
 router.put(
   // Required: email, firstname, lastname -- FERTIG
   '/user-email',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     const { email, firstname, lastname } = req.body;
     const result = await updateUserName(email, firstname, lastname);
@@ -101,6 +102,7 @@ router.put(
 router.put(
   // Required: email, new_password -- FERTIG
   '/user-password',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     const { email, new_password } = req.body;
     const result = await updateUserPassword(email, new_password);
@@ -110,6 +112,7 @@ router.put(
 router.delete(
   // Required: email -- FERTIG
   '/user',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     let email = req.body.email;
     const result = await deleteUser(email);
@@ -121,6 +124,7 @@ router.delete(
 router.post(
   // Required: email, name, file
   '/upload',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     const { email, name } = req.body;
     const result = await uploadFile(email, req.files.upload);
@@ -131,6 +135,7 @@ router.post(
 router.post(
   // Required: email, data_id, new_email
   '/add-user',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     let { email, id, new_email } = req.body;
     const result = await addUserFileConnection(email, id, new_email);
@@ -139,6 +144,7 @@ router.post(
 );
 router.post(
   '/get-file-owner',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     let { email, id } = req.body;
     const result = await getFileOwner(email, id);
@@ -147,6 +153,7 @@ router.post(
 );
 router.delete(
   '/remove-file-owner',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     let { user_mail, email, id } = req.body;
     const result = await removeFileOwner(user_mail, email, id);
@@ -156,6 +163,7 @@ router.delete(
 router.post(
   // Required: email, id
   '/add-synonym',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     const result = await setSynonymFilePath(email, id);
   }),
@@ -163,6 +171,7 @@ router.post(
 router.put(
   // Required: email, id, name
   '/file',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     // TODO if loggedIn
     const result = await updateUserFile(email, id, name);
@@ -171,6 +180,7 @@ router.put(
 router.delete(
   // Required: email, id
   '/file',
+  redirectLogin,
   asyncHandler(async (req, res) => {
     const { email, id } = req.body;
     const result = await deleteUserFile(email, id);
