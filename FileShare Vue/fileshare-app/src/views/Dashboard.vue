@@ -83,7 +83,7 @@
             Discard changes
           </button>
           <br />
-          <button class="btn btn-danger mt-3 mb-1" @click="deleteUser">
+          <button type="button" class="btn btn-danger mt-3 mb-1" @click="deleteUser">
             Delete User
           </button>
         </form>
@@ -501,7 +501,7 @@ export default {
             },
           });
 
-          this.$router.push('/');
+          this.$router.push({ name: 'Home' });
         }
       } catch (error) {
         console.log(error);

@@ -31,4 +31,5 @@ Content-Type: application/json
     "firstname": "name1",
     "lastname": "name2"
 }
-
+###
+DELETE http://127.0.0.1:3000/user

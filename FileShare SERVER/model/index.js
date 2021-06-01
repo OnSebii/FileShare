@@ -66,6 +66,7 @@ async function updateUserPassword(email, password) {
 // }
 async function deleteUser(email) {
   // await deleteUserFiles(email);
+  await db.query('DELETE FROM user_data WHERE email = $1', [email]);
   await db.query('DELETE FROM users WHERE email = $1', [email]);
   return {
     data: 'Success',
