@@ -4,12 +4,12 @@ const fs = require('fs');
 function deleteFile(filePath, name) {
   // path => upload/...
   // name => upload/.../name.xyz
-  const dir = path.join(__dirname, '../upload/', filePath, name);
+  const dir = path.join(__dirname, '../public/upload/', filePath, name);
   fs.unlinkSync(dir);
 }
 
 function deleteAnon() {
-  const dir = path.join(__dirname, '../upload/anon/');
+  const dir = path.join(__dirname, '../public/upload/anon/');
 
   fs.readdir(dir, (err, files) => {
     if (err) throw err;

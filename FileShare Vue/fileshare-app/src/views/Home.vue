@@ -205,7 +205,7 @@ export default {
           contentType: 'multipart/form-data',
           data: formData,
         });
-        this.uploadedFile = `${window.location.host}/${data}`;
+        this.uploadedFile = `${window.location.host}/down/?user=anon&file=${data}`;
       } catch (error) {
         console.error(error);
       }

@@ -149,7 +149,7 @@ router.delete(
   '/remove-file-owner',
   asyncHandler(async (req, res) => {
     let { user_mail, email, id } = req.body;
-    const result = await removeFileOwner(user_mail,email, id);
+    const result = await removeFileOwner(user_mail, email, id);
     res.status(result.status).json(result.data);
   }),
 );
@@ -189,32 +189,6 @@ router.get(
   '/registered/:syn_path',
   asyncHandler(async (req, res) => {
     // Syn_path -> return path (random)
-  }),
-);
-
-// Get Images back
-router.get(
-  '/download?',
-  asyncHandler(async (req, res) => {
-    const { user, fileName } = req.query;
-
-    if (user == 'anon') {
-      // const file = getFileAnon(fileName);
-      // fs.readFile(path.join(__dirname, '../upload/anon/', fileName), 'utf8', function (err, data) {
-      //   if (err) throw err;
-
-      //   var resultArray = data;
-
-      // });
-      const url = getFileAnon(fileName);
-      console.log(url);
-      res.status(200).sendFile(url);
-
-      // res.status(200).download(file);
-      // res.status(200).json({data: file});
-    } else {
-      res.status(404).send('File not found.');
-    }
   }),
 );
 
