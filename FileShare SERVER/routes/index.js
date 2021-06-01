@@ -18,6 +18,7 @@ const {
   uploadFile, // (user, file) -> cstmID [Page: Home/Dashboard]
   getFileOwner,
   // deleteFile (user, path) -> bool [Page: Dashboard] - called regularly via cron job
+  removeFileOwner,
 } = require('../model');
 
 const { getFileAnon } = require('../model/getFile');
@@ -112,7 +113,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     let email = req.body.email;
     const result = await deleteUser(email);
-    res.status(result.status).json(result);
+    res.status(result.status).json(result.data);
   }),
 );
 
@@ -141,6 +142,14 @@ router.post(
   asyncHandler(async (req, res) => {
     let { email, id } = req.body;
     const result = await getFileOwner(email, id);
+    res.status(result.status).json(result.data);
+  }),
+);
+router.delete(
+  '/remove-file-owner',
+  asyncHandler(async (req, res) => {
+    let { user_mail, email, id } = req.body;
+    const result = await removeFileOwner(user_mail,email, id);
     res.status(result.status).json(result.data);
   }),
 );

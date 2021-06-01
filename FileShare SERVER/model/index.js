@@ -66,9 +66,9 @@ async function deleteUserFiles(email) {
 }
 async function deleteUser(email) {
   await deleteUserFiles(email);
-  const { rows } = await db.query('DELETE FROM users WHERE email = $1 RETURNING email', [email]);
+  const { rows } = await db.query('DELETE FROM users WHERE email = $1', [email]);
   return {
-    data: rows[0].email,
+    data: 'Success',
     status: 200,
   };
 }
@@ -98,12 +98,12 @@ async function addUserFile(email, name, path) {
 async function addUserFileConnection(email, data_id, new_email) {
   const permission = await checkFileOwner(email, data_id);
   if (permission) {
-    const { rows } = await db.query(
-      'INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, false) RETURNING email, data_id',
-      [new_email, data_id],
-    );
+    await db.query('INSERT INTO user_data(email, data_id, admin) VALUES ($1, $2, false)', [
+      new_email,
+      data_id,
+    ]);
     return {
-      data: rows,
+      data: 'Success',
       status: 200,
     };
   }
@@ -117,6 +117,20 @@ async function getFileOwner(email, id) {
       status: 200,
     };
   }
+}
+async function removeFileOwner(user_mail, email, id) {
+  const permission = await checkFileOwner(user_mail, id);
+  if (permission) {
+    await db.query('DELETE FROM user_data WHERE data_id = $1 AND email = $2 AND admin = false', [id, email]);
+    return {
+      data: 'Success',
+      status: 200,
+    };
+  }
+  return {
+    data: 'Error',
+    status: 500,
+  };
 }
 async function setSynonymFilePath(email, id) {
   const permission = await checkFileOwner(email, id);
@@ -211,6 +225,7 @@ module.exports = {
   deleteUserFile,
   uploadFile,
   getFileOwner,
+  removeFileOwner,
 };
 
 // async function getEmployee(id) {
