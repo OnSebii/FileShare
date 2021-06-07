@@ -137,11 +137,11 @@
             </span>
           </div>
           <div class="col-6 mb-5">
-            <img src="/gif/UploadAnon.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
+            <img src="/img/uploadAnon.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
           </div>
 
-          <div class="col-6">
-            <img src="../assets/img/300.png" class="rounded mx-auto d-block" alt="Placeholder image" />
+          <div class="col-6 mb-5">
+            <img src="/img/uploadUser.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
           </div>
           <div class="col-6">
             <h4>Login and share your files</h4>
