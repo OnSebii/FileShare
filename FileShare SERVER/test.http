@@ -33,3 +33,8 @@ Content-Type: application/json
 }
 ###
 DELETE http://127.0.0.1:3000/user
+Content-Type: application/json
+
+{
+    "email": "lang.s03@htlwienwest.at"
+}
