@@ -137,20 +137,20 @@
             </span>
           </div>
           <div class="col-6 mb-5">
-            <img src="/gif/UploadAnon.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
+            <img src="/img/uploadAnon.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
           </div>
 
-          <div class="col-6">
-            <img src="../assets/img/300.png" class="rounded mx-auto d-block" alt="Placeholder image" />
+          <div class="col-6 mb-5">
+            <img src="/img/uploadUser.gif" class="rounded mx-auto d-block col-12" alt="Placeholder Gif" />
           </div>
           <div class="col-6">
             <h4>Login and share your files</h4>
-            <a>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-              unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-              with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </a>
+            <span>
+              Creating a user account is super easy. Simply click here on <a href="/register" target="_blank" class="linkColor">register</a> or press the
+              <a href="/login" target="_blank" class="linkColor">login</a> button in the top right corner. If you haven't created an account yet, you can go to
+              <a href="/register" target="_blank" class="linkColor">register</a> and enter your details. As soon as you have a user account you can log in. After logging in, you
+              will see your personal dashboard. There you can see your uploaded files and share your files with other users.
+            </span>
           </div>
         </div>
       </div>
